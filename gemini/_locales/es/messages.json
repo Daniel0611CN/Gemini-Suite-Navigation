@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "SaveChat – for Gemini & AI Studio",
+    "description": "The name of the extension in Spanish."
+  },
+  "appDesc": {
+    "message": "Exportar conversaciones de Gemini y AI Studio",
+    "description": "The description of the application, displayed in the web store."
+  }
+} 

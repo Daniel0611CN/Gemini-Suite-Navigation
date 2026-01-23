@@ -1,0 +1,391 @@
+{
+  "appName": {
+    "message": "SaveChat – for Gemini & AI Studio",
+    "description": "The name of the extension."
+  },
+  "appDesc": {
+    "message": "Export Gemini and AI Studio conversations",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "extName": {
+    "message": "Gemini Chat Folders"
+  },
+  "extDescription": {
+    "message": "Adds collapsible panels and folder management (including nested ones) for chats, with drag-and-drop sorting."
+  },
+  "foldersTitle": {
+    "message": "Folders"
+  },
+  "newFolder": {
+    "message": "New folder"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "confirm": {
+    "message": "Confirm"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "untitledChat": {
+    "message": "Untitled Chat"
+  },
+  "confirmAddChat": {
+    "message": "Do you want to add \"$1\" to the folder \"$2\"?",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "chatAdded": {
+    "message": "\"$1\" added to \"$2\"",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "chatAlreadyExists": {
+    "message": "Chat already in \"$1\"",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "addModeNotification": {
+    "message": "Add Mode: Click on a chat to add it to \"$1\"",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "promptNewName": {
+    "message": "Enter the new name for \"$1\":",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "confirmDeleteFolder": {
+    "message": "Are you sure you want to delete the folder \"$1\" and all its contents?",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "confirmDeleteChatmark": {
+    "message": "Are you sure you want to remove the bookmark \"$1\"?",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "chatContainerNotFound": {
+    "message": "Chat container not found."
+  },
+  "chatNotFoundTryAgain": {
+    "message": "Chat not found, trying to load more... (Attempt $1)",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "chatNotFound": {
+    "message": "Chat not found, it may have been deleted."
+  },
+  "folderMenu": {
+    "message": "Folder menu"
+  },
+  "addChat": {
+    "message": "Add chat"
+  },
+  "addSubfolder": {
+    "message": "Add sub-folder"
+  },
+  "rename": {
+    "message": "Rename"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  "chatmarkMenu": {
+    "message": "Bookmark menu"
+  },
+  "remove": {
+    "message": "Remove"
+  },
+  "promptNewFolder": {
+    "message": "Enter the new folder name:"
+  },
+  "searchPlaceholder": {
+    "message": "Search folders and chats..."
+  },
+  "search": {
+    "message": "Search"
+  },
+  "syncQuotaExceeded": {
+    "message": "Sync Error: Storage quota exceeded. Data may not be synchronized across devices."
+  },
+  "importData": {
+    "message": "Import Data"
+  },
+  "exportData": {
+    "message": "Export Data"
+  },
+  "confirmImport": {
+    "message": "Are you sure you want to import data? This will overwrite your current folder structure. This action cannot be undone."
+  },
+  "importSuccess": {
+    "message": "Data imported successfully!"
+  },
+  "importError": {
+    "message": "Import failed. The selected file is not a valid backup file."
+  },
+  "exportSuccess": {
+    "message": "Data has been exported."
+  },
+  "exportError": {
+    "message": "An error occurred while exporting data."
+  },
+  "moreActions": {
+    "message": "More Actions"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "organizeWithAI": {
+    "message": "Organize Chats with AI"
+  },
+  "settingsTitle": {
+    "message": "Settings & Data"
+  },
+  "apiKeyLabel": {
+    "message": "Gemini API Key"
+  },
+  "apiKeyPlaceholder": {
+    "message": "Enter your API key here"
+  },
+  "apiKeyExplanation": {
+    "message": "To use the AI organization feature, you need a Gemini API key. This is a free and optional feature. Your key is stored securely in your browser's sync storage and is never shared."
+  },
+  "apiKeyGuideLink": {
+    "message": "Get your API key here."
+  },
+  "saveAndVerifyKey": {
+    "message": "Save and Verify"
+  },
+  "keyVerifying": {
+    "message": "Verifying..."
+  },
+  "keyValid": {
+    "message": "Key is valid and has been saved!"
+  },
+  "keyInvalid": {
+    "message": "The key is invalid. Please check and try again."
+  },
+  "organizingChats": {
+    "message": "Asking AI to organize your chats..."
+  },
+  "organizeSuccess": {
+    "message": "Chats organized successfully!"
+  },
+  "organizeError": {
+    "message": "An error occurred during AI organization."
+  },
+  "noUncategorizedChats": {
+    "message": "No new chats to organize."
+  },
+  "loadingChats": {
+    "message": "Loading all recent chats..."
+  },
+  "loadingChatsComplete": {
+    "message": "All chats have been loaded. Analyzing now..."
+  },
+  "importSuccessReload": {
+    "message": "Data imported successfully! The page will now reload to apply the changes."
+  },
+  "organizeParseError": {
+    "message": "Organization complete, but some suggestions from the AI could not be understood."
+  },
+  "confirmOrganizeAI": {
+    "message": "This will use your Gemini API key to analyze all uncategorized chats. This action consumes resources, may take a few moments, and could incur costs depending on your API plan. Do you want to proceed?"
+  },
+  "dangerZoneTitle": {
+    "message": "Danger Zone"
+  },
+  "deleteAllDataButton": {
+    "message": "Delete All Data"
+  },
+  "deleteApiKeyCheckbox": {
+    "message": "Also delete saved API Key"
+  },
+  "confirmDeleteAllData": {
+    "message": "Are you sure you want to delete all your folders and chatmarks? This action cannot be undone."
+  },
+  "confirmDeleteAllDataWithKey": {
+    "message": "Are you sure you want to delete ALL your folders, chatmarks, AND your saved API Key? This action cannot be undone."
+  },
+  "deleteAllDataSuccess": {
+    "message": "All data has been deleted. The page will now reload."
+  },
+  "selectChatsTitle": {
+    "message": "Select Chats to Organize"
+  },
+  "selectionModalInfo": {
+    "message": "The following new chats were found. Please select which ones you want to send to the AI for organization."
+  },
+  "selectAll": {
+    "message": "Select All"
+  },
+  "selectNone": {
+    "message": "Select None"
+  },
+  "organizeXChats": {
+    "message": "Organize $1 Chats",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "confirmDuplicateChatmark": {
+    "message": "A bookmark for \"$1\" already exists in the folder \"$3\". Do you want to create a duplicate in \"$2\"?",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
+    }
+  },
+  "chatAlreadyInTargetFolder": {
+    "message": "This chat is already bookmarked in the target folder."
+  },
+  "confirmDeleteMissingChatmark": {
+    "message": "The chat \"$1\" could not be found. It may have been deleted. Do you want to remove this bookmark?",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "syncButtonTitle": {
+    "message": "Data is outdated. Click to refresh."
+  },
+  "refreshingData": {
+    "message": "Refreshing data..."
+  },
+  "dataStaleWarning": {
+    "message": "The data shown is outdated because it was modified on another device. To prevent data loss, modification operations are temporarily disabled. Click the button to load the latest version."
+  },
+  "refreshButton": {
+    "message": "Refresh Now"
+  },
+  "dataStaleActionBlocked": {
+    "message": "Action blocked. Please refresh data before proceeding."
+  },
+  "manageBackupsButton": {
+    "message": "Manage Local Backups"
+  },
+  "restoreBackupTitle": {
+    "message": "Restore from Local Backup"
+  },
+  "noBackupsFound": {
+    "message": "No local backups found."
+  },
+  "restoreBackupInfo": {
+    "message": "Select one of the automatically saved backups to restore the folder structure to that date. This operation will overwrite the current configuration."
+  },
+  "restoreButton": {
+    "message": "Restore"
+  },
+  "confirmRestore": {
+    "message": "Are you sure you want to restore the backup from $1? Your current folder structure will be overwritten.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoreSuccess": {
+    "message": "Restore completed successfully. The page will now reload."
+  },
+  "backupSlotTitle": {
+    "message": "Slot $1:",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "backupSlotDetails": {
+    "message": "($1 folders, $2 chats)",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "restoreButtonDisabledTitle": {
+    "message": "This is the current version in use"
+  },
+  "genericError": {
+    "message": "An unexpected error occurred."
+  },
+  "aiUseExistingFolders": {
+    "message": "Use only existing folders"
+  },
+  "aiUseExistingFoldersInfo": {
+    "message": "If checked, the AI will not create new folders, but will only try to place chats into existing ones."
+  },
+  "aiDefaultFolderName": {
+    "message": "Folder for unclassified chats"
+  },
+  "aiDefaultFolderNameInfo": {
+    "message": "If the AI cannot find a suitable folder, chats will be placed here (it will be created if it does not exist)."
+  },
+  "defaultFolderNameValue": {
+    "message": "To Organize"
+  },
+  "cleanupOrphans": {
+    "message": "Clean up orphan chatmarks"
+  },
+  "cleanupOrphansTitle": {
+    "message": "Clean Up Orphan Bookmarks"
+  },
+  "cleanupOrphansInfo": {
+    "message": "$1 bookmarks were found pointing to non-existent chats. Please select which ones you want to remove.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "noOrphansFound": {
+    "message": "Scan complete. No orphan bookmarks found."
+  },
+  "cleanupXOrphans": {
+    "message": "Remove $1 Bookmarks",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "cleanupSuccess": {
+    "message": "$1 orphan bookmarks have been removed.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "preferencesTitle": {
+    "message": "Preferences"
+  },
+  "hideOrganizedLabel": {
+    "message": "Hide organized chats from Recents"
+  },
+  "hideOrganizedInfo": {
+    "message": "Hide chats that are already assigned to a folder from the standard recents list."
+  },
+  "updatePageTitleLabel": {
+    "message": "Update page title with chat name"
+  },
+  "updatePageTitleInfo": {
+    "message": "Replaces the browser tab title with the name of the current chat or bookmark."
+  },
+  "pageTitlePrefixLabel": {
+    "message": "Page title prefix"
+  },
+  "pageTitlePrefixPlaceholder": {
+    "message": "Ex. Google Gemini - "
+  },
+  "saveSettings": {
+    "message": "Save Settings"
+  },
+  "testApiKey": {
+    "message": "Verify Key"
+  },
+  "settingsSaved": {
+    "message": "Settings saved successfully!"
+  },
+  "previewTitle": {
+    "message": "Preview Organization"
+  },
+  "previewInfo": {
+    "message": "Review the folder structure proposed by the AI. Uncheck items you do not wish to apply."
+  },
+  "applyChanges": {
+    "message": "Apply Changes"
+  },
+  "updateDetectedNotification": {
+  "message": "Gemini Chat Folders has been updated, check settings for details"
+  },
+  "viewChangesLink": {
+    "message": "View the latest changes here: "
+  }
+}

@@ -1,0 +1,53 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 3,
+  "name": "Gemini Suite Navigation",
+  "version": "1.0",
+  "default_locale": "en",
+  "description": "",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/app/*",
+        "https://gemini.google.com/*",
+        "https://aistudio.google.com/*"
+      ],
+      "js": [
+        "content.js",
+        "lib/katex.min.js",
+        "math_processor.js",
+        "lib/pdfmake.min.js",
+        "lib/vfs_fonts.js",
+        "lib/html-to-pdfmake.min.js",
+        "content_gemini.js"
+      ],
+      "css": [
+        "styles.css",
+        "lib/katex.min.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+      {
+          "resources": ["lib/fonts/*"],
+          "matches": ["https://gemini.google.com/*", "https://aistudio.google.com/*"]
+      }
+  ],
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
