@@ -3086,8 +3086,9 @@ Now, provide the formatted text response. Your response MUST ONLY contain the st
         // 1. Check main container
         const chatContainer = document.querySelector('.conversations-container');
         if (!chatContainer) {
-            console.warn('GFE Compatibility Check Failed: .conversations-container not found.');
-            showIncompatibilityModal();
+            // When there are no conversations (fresh account) the sidebar may be absent.
+            // This is not a blocking incompatibility — log an informational message and continue.
+            console.info('No blocking modal: Gemini chat sidebar/history empty or missing (normal)');
             return;
         }
 
