@@ -34,7 +34,11 @@
         "src/content/gemini/content_gemini.js"
       ],
       "css": [
-        "src/ui/styles/main.css",
+        "src/ui/styles/themes.css",
+        "src/ui/styles/sidebar.css",
+        "src/ui/styles/buttons.css",
+        "src/ui/styles/folder-enhancement.css",
+        "src/ui/styles/styles.css",
         "assets/lib/katex.min.css"
       ],
       "run_at": "document_idle"

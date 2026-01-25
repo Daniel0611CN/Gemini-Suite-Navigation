@@ -1,7 +1,2 @@
 /* Main entry point for all extension styles */
-@import url('./themes.css');
-@import url('./sidebar.css');
-@import url('./buttons.css');
-@import url('./folder-enhancement.css');
-
-/* Include remaining styles from original styles.css that weren't separated yet */
+/* All modular CSS files are loaded directly via manifest.json for better compatibility */
