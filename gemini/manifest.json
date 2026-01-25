@@ -14,40 +14,72 @@
     "https://generativelanguage.googleapis.com/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background/background.js"
   },
   
   "content_scripts": [
     {
       "matches": [
         "https://gemini.google.com/app/*",
-        "https://gemini.google.com/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "assets/lib/pdfmake.min.js",
+        "assets/lib/vfs_fonts.js",
+        "assets/lib/html-to-pdfmake.min.js",
+        "assets/lib/html2canvas.min.js",
+        "assets/lib/jspdf.umd.min.js",
+        "assets/lib/html2pdf.bundle.min.js",
+        "assets/lib/katex.min.js",
+        "src/content/common/content.js",
+        "src/content/common/math_processor.js",
+        "src/content/gemini/content_gemini.js"
+      ],
+      "css": [
+        "src/ui/styles/themes.css",
+        "src/ui/styles/sidebar.css",
+        "src/ui/styles/buttons.css",
+        "src/ui/styles/folder-enhancement.css",
+        "src/ui/styles/styles.css",
+        "assets/lib/katex.min.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
         "https://aistudio.google.com/*"
       ],
       "js": [
-        "content.js",
-        "lib/katex.min.js",
-        "math_processor.js",
-        "lib/pdfmake.min.js",
-        "lib/vfs_fonts.js",
-        "lib/html-to-pdfmake.min.js",
-        "content_gemini.js"
+        "assets/lib/pdfmake.min.js",
+        "assets/lib/vfs_fonts.js",
+        "assets/lib/html-to-pdfmake.min.js",
+        "assets/lib/html2canvas.min.js",
+        "assets/lib/jspdf.umd.min.js",
+        "assets/lib/html2pdf.bundle.min.js",
+        "assets/lib/katex.min.js",
+        "src/content/common/content.js",
+        "src/content/common/math_processor.js",
+        "src/content/aistudio/content_aistudio.js"
       ],
       "css": [
-        "styles.css",
-        "lib/katex.min.css"
+        "src/ui/styles/themes.css",
+        "src/ui/styles/sidebar.css",
+        "src/ui/styles/buttons.css",
+        "src/ui/styles/folder-enhancement.css",
+        "src/ui/styles/styles.css",
+        "assets/lib/katex.min.css"
       ],
       "run_at": "document_idle"
     }
   ],
   "web_accessible_resources": [
       {
-          "resources": ["lib/fonts/*"],
+          "resources": ["assets/lib/fonts/*"],
           "matches": ["https://gemini.google.com/*", "https://aistudio.google.com/*"]
       }
   ],
   "icons": {
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
   }
 }

@@ -1,0 +1,169 @@
+/* Definizione delle variabili di colore per GFE (Gemini Folder Enhancement) */
+:root {
+  --gfe-text-primary: #e8eaed;
+  --gfe-text-secondary: #bdc1c6;
+  --gfe-text-tertiary: #e0e0e0;
+  --gfe-text-danger: #f28b82;
+  --gfe-icon-color: #bdc1c6;
+  --gfe-background-hover-rgba: rgba(232, 234, 237, 0.08);
+  --gfe-background-hover-darker: #4f5356;
+  --gfe-input-bg: #3c4043;
+  --gfe-input-border: #5f6368;
+  --gfe-input-border-focus: #8ab4f8;
+  --gfe-menu-bg: #2d2e30;
+  --gfe-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --gfe-shadow-heavy: 0 5px 15px rgba(0, 0, 0, 0.5);
+  --gfe-danger-hover-bg: rgba(242, 139, 130, 0.1);
+  --gfe-notification-bg: #3c4043;
+  --gfe-notification-text: #e8eaed;
+  --gfe-overlay-bg: rgba(0, 0, 0, 0.6);
+  --gfe-button-secondary-bg: #3c4043;
+  --gfe-button-secondary-text: #e8eaed;
+  --gfe-button-secondary-bg-hover: #4f5356;
+  --gfe-button-primary-bg: #8ab4f8;
+  --gfe-button-primary-text: #202124;
+  --gfe-button-primary-bg-hover: #a5c5f9;
+  --gfe-highlight-bg: rgba(138, 180, 248, 0.2);
+  --gfe-drop-indicator-color: #8ab4f8;
+  --gfe-drop-target-bg-folder: rgba(138, 180, 248, 0.15);
+  --gfe-border-color: #5f6368;
+  --gfe-button-danger-bg: #d93025;
+  --gfe-button-danger-text: #ffffff;
+  --gfe-button-danger-bg-hover: #a50e04;
+  --gfe-stale-warning-bg: rgba(252, 232, 131, 0.1);
+  --gfe-stale-warning-border: #fce883;
+  --gfe-scroll-shadow-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Override delle variabili per il tema chiaro */
+body.light-theme {
+  --gfe-text-primary: #202124;
+  --gfe-text-secondary: #5f6368;
+  --gfe-text-tertiary: #3c4043;
+  --gfe-text-danger: #d93025;
+  --gfe-icon-color: #5f6368;
+  --gfe-background-hover-rgba: rgba(32, 33, 36, 0.04);
+  --gfe-background-hover-darker: #e8eaed;
+  --gfe-input-bg: #f1f3f4;
+  --gfe-input-border: #dadce0;
+  --gfe-input-border-focus: #1a73e8;
+  --gfe-menu-bg: #ffffff;
+  --gfe-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
+  --gfe-shadow-heavy: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+  --gfe-danger-hover-bg: rgba(217, 48, 37, 0.1);
+  --gfe-notification-bg: #ffffff;
+  --gfe-notification-text: #202124;
+  --gfe-overlay-bg: rgba(95, 99, 104, 0.6);
+  --gfe-button-secondary-bg: #e8eaed;
+  --gfe-button-secondary-text: #3c4043;
+  --gfe-button-secondary-bg-hover: #dadce0;
+  --gfe-button-primary-bg: #1a73e8;
+  --gfe-button-primary-text: #ffffff;
+  --gfe-button-primary-bg-hover: #1b66c9;
+  --gfe-highlight-bg: rgba(26, 115, 232, 0.1);
+  --gfe-drop-indicator-color: #1a73e8;
+  --gfe-drop-target-bg-folder: rgba(26, 115, 232, 0.12);
+  --gfe-border-color: #dadce0;
+  --gfe-button-danger-bg: #d93025;
+  --gfe-button-danger-text: #ffffff;
+  --gfe-button-danger-bg-hover: #c5221f;
+  --gfe-stale-warning-bg: rgba(250, 190, 0, 0.15);
+  --gfe-stale-warning-border: #fab600;
+  --gfe-scroll-shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Header modifications for folder enhancement */
+.title-container.gfe-modified {
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+}
+
+.title-container.gfe-modified:not(#gfe-folders-panel .title-container) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Header del pannello cartelle */
+#gfe-folders-panel .title-container {
+  display: flex;
+  align-items: center;
+}
+
+#gfe-folders-panel .title-container h1 {
+  flex-grow: 1;
+}
+
+.title-container.gfe-modified:hover {
+  background-color: var(--gfe-background-hover-rgba);
+}
+
+/* Contenitore per i nostri pulsanti a destra */
+.gfe-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Fix per forzare la visibilità dell'header clonato */
+.gfe-modified.title-container {
+  visibility: visible !important;
+}
+
+/* Stili per i pulsanti nell'header (Nuova Cartella e Cerca) */
+#gfe-add-folder-btn,
+#gfe-toggle-search-btn,
+#gfe-more-actions-btn,
+#gfe-sync-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gfe-icon-color);
+  position: relative;
+}
+
+#gfe-add-folder-btn:hover,
+#gfe-toggle-search-btn:hover,
+#gfe-more-actions-btn:hover,
+#gfe-sync-btn:hover {
+  background-color: var(--gfe-background-hover-darker);
+}
+
+.gfe-collapse-button {
+  margin-left: auto;
+}
+
+.gfe-collapse-button svg {
+  transition: transform 0.2s ease-in-out;
+}
+
+.title-container.gfe-collapsed .gfe-collapse-button svg,
+#gfe-folders-panel.gfe-collapsed .gfe-collapse-button svg,
+.gfe-my-stuff.gfe-collapsed .gfe-collapse-button svg {
+  transform: rotate(-90deg);
+}
+
+#gfe-folders-panel.gfe-collapsed .gfe-search-container,
+#gfe-folders-panel.gfe-collapsed #gfe-folders-content {
+  display: none;
+}
+
+.title-container.gfe-recents.gfe-collapsed+.conversations-container {
+  display: none;
+}
+
+.title-container.gfe-gem.gfe-collapsed+.bots-list-container {
+  display: none;
+}
+
+.gfe-my-stuff.gfe-collapsed+my-stuff-recents-preview,
+side-nav-entry-button.gfe-my-stuff.gfe-collapsed+my-stuff-recents-preview {
+  display: none !important;
+}
