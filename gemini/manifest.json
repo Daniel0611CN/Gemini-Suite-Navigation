@@ -21,17 +21,45 @@
     {
       "matches": [
         "https://gemini.google.com/app/*",
-        "https://gemini.google.com/*",
-        "https://aistudio.google.com/*"
+        "https://gemini.google.com/*"
       ],
       "js": [
-        "src/content/common/content.js",
-        "assets/lib/katex.min.js",
-        "src/content/common/math_processor.js",
         "assets/lib/pdfmake.min.js",
         "assets/lib/vfs_fonts.js",
         "assets/lib/html-to-pdfmake.min.js",
+        "assets/lib/html2canvas.min.js",
+        "assets/lib/jspdf.umd.min.js",
+        "assets/lib/html2pdf.bundle.min.js",
+        "assets/lib/katex.min.js",
+        "src/content/common/content.js",
+        "src/content/common/math_processor.js",
         "src/content/gemini/content_gemini.js"
+      ],
+      "css": [
+        "src/ui/styles/themes.css",
+        "src/ui/styles/sidebar.css",
+        "src/ui/styles/buttons.css",
+        "src/ui/styles/folder-enhancement.css",
+        "src/ui/styles/styles.css",
+        "assets/lib/katex.min.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://aistudio.google.com/*"
+      ],
+      "js": [
+        "assets/lib/pdfmake.min.js",
+        "assets/lib/vfs_fonts.js",
+        "assets/lib/html-to-pdfmake.min.js",
+        "assets/lib/html2canvas.min.js",
+        "assets/lib/jspdf.umd.min.js",
+        "assets/lib/html2pdf.bundle.min.js",
+        "assets/lib/katex.min.js",
+        "src/content/common/content.js",
+        "src/content/common/math_processor.js",
+        "src/content/aistudio/content_aistudio.js"
       ],
       "css": [
         "src/ui/styles/themes.css",
