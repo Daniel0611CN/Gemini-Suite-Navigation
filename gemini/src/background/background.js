@@ -1,4 +1,4 @@
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => (console.log("Background received message:", request), !0)), chrome.runtime.onInstalled.addListener(function (details) { console.log("Extension installed/updated:", details.reason); const settingsKey = "ai-pdf-settings"; if ("install" === details.reason) { console.log("Gemini/AI Studio PDF Extension Installed."); const initialSettings = { fileName: "ai-conversation", theme: "light", orientation: "portrait", compression: !0 }; chrome.storage.local.set({ [settingsKey]: initialSettings }, () => { chrome.runtime.lastError ? console.error("Error saving initial settings:", chrome.runtime.lastError) : console.log("Default PDF settings saved to local storage.") }) } else "update" === details.reason && (console.log("Gemini/AI Studio PDF Extension Updated."), chrome.storage.local.get("ai-pdf-settings", result => { if (!result["ai-pdf-settings"]) { console.log("Settings key not found on update, initializing defaults."); const initialSettings = {}; chrome.storage.local.set({ [settingsKey]: initialSettings }) } })) });
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => (console.log("Mensaje recibido en background:", request), !0)), chrome.runtime.onInstalled.addListener(function (details) { console.log("Extensión instalada/actualizada:", details.reason); const settingsKey = "ai-pdf-settings"; if ("install" === details.reason) { console.log("Extensión PDF Gemini/AI Studio Instalada."); const initialSettings = { fileName: "ai-conversation", theme: "light", orientation: "portrait", compression: !0 }; chrome.storage.local.set({ [settingsKey]: initialSettings }, () => { chrome.runtime.lastError ? console.error("Error al guardar configuración inicial:", chrome.runtime.lastError) : console.log("Configuración PDF predeterminada guardada en almacenamiento local.") }) } else "update" === details.reason && (console.log("Extensión PDF Gemini/AI Studio Actualizada."), chrome.storage.local.get("ai-pdf-settings", result => { if (!result["ai-pdf-settings"]) { console.log("Clave de configuración no encontrada al actualizar, inicializando valores predeterminados."); const initialSettings = {}; chrome.storage.local.set({ [settingsKey]: initialSettings }) } })) });
 
 chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason === "update") {
@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener((details) => {
                 if (a > b) return false;
             }
             return false;
-        };
+        }; // Función para verificar si una versión es más antigua que otra
 
         if (previousVersion && isVersionOlder(previousVersion, currentVersion)) {
             chrome.storage.local.set({

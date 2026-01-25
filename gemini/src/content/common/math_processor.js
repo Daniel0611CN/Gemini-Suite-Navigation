@@ -3,7 +3,7 @@ function isKaTeXAvailable() {
     return void 0 !== window.katex;
   } catch (e) {
     return (
-      console.warn("[Math Processor] Error checking KaTeX availability:", e),
+      console.warn("[Procesador Matemático] Error al verificar disponibilidad de KaTeX:", e),
       !1
     );
   }
@@ -33,7 +33,7 @@ function processLatexMath(html) {
         return `<span class="math-display-block">${katex.renderToString(math.trim(), { ...katexOptions, displayMode: !0 })}</span>`;
       } catch (e) {
         return (
-          console.warn("[Math Processor] Failed to render display math:", e),
+          console.warn("[Procesador Matemático] Error al renderizar matemáticas en modo pantalla:", e),
           `<span class="math-fallback math-display-fallback" data-math="${encodeHtmlAttribute(math)}">$$${escapeHtml(math)}$$</span>`
         );
       }
@@ -43,7 +43,7 @@ function processLatexMath(html) {
         return `<span class="math-display-block">${katex.renderToString(math.trim(), { ...katexOptions, displayMode: !0 })}</span>`;
       } catch (e) {
         return (
-          console.warn("[Math Processor] Failed to render display math:", e),
+          console.warn("[Procesador Matemático] Error al renderizar matemáticas en modo pantalla:", e),
           `<span class="math-fallback math-display-fallback" data-math="${encodeHtmlAttribute(math)}">\\[${escapeHtml(math)}\\]</span>`
         );
       }
@@ -56,7 +56,7 @@ function processLatexMath(html) {
           return `<span class="math-inline-block">${katex.renderToString(math.trim(), { ...katexOptions, displayMode: !1 })}</span>`;
         } catch (e) {
           return (
-            console.warn("[Math Processor] Failed to render inline math:", e),
+            console.warn("[Procesador Matemático] Error al renderizar matemáticas en línea:", e),
             `<span class="math-fallback math-inline-fallback" data-math="${encodeHtmlAttribute(math)}">$${escapeHtml(math)}$</span>`
           );
         }
@@ -67,7 +67,7 @@ function processLatexMath(html) {
         return `<span class="math-inline-block">${katex.renderToString(math.trim(), { ...katexOptions, displayMode: !1 })}</span>`;
       } catch (e) {
         return (
-          console.warn("[Math Processor] Failed to render inline math:", e),
+          console.warn("[Procesador Matemático] Error al renderizar matemáticas en línea:", e),
           `<span class="math-fallback math-inline-fallback" data-math="${encodeHtmlAttribute(math)}">\\(${escapeHtml(math)}\\)</span>`
         );
       }
@@ -100,7 +100,7 @@ function processMathML(html) {
             mathElement.parentNode.replaceChild(wrapper, mathElement));
         } else mathElement.classList.add("mathml-content");
       } catch (e) {
-        (console.warn("[Math Processor] Failed to process MathML:", e),
+        (console.warn("[Procesador Matemático] Error al procesar MathML:", e),
           mathElement.classList.add("mathml-fallback"));
       }
     }),
@@ -188,7 +188,7 @@ function addMathStyles() {
   const style = document.createElement("style");
   ((style.id = "math-processor-styles"),
     (style.textContent =
-      "\n        .math-display-block {\n            display: block;\n            text-align: center;\n            margin: 1em 0;\n            page-break-inside: avoid;\n        }\n        \n        .math-inline-block {\n            display: inline-block;\n            vertical-align: middle;\n        }\n        \n        .math-fallback {\n            font-family: 'Courier New', monospace;\n            background-color: rgba(255, 0, 0, 0.1);\n            padding: 2px 4px;\n            border-radius: 3px;\n        }\n        \n        .math-display-fallback {\n            display: block;\n            text-align: center;\n            margin: 1em 0;\n        }\n        \n        .math-inline-fallback {\n            display: inline-block;\n        }\n        \n        /* Ensure KaTeX renders properly in PDFs */\n        .katex {\n            font-size: 1.1em;\n            color: inherit;\n        }\n        \n        .katex-display {\n            margin: 0.5em 0;\n        }\n        \n        /* MathML fallback styles */\n        math {\n            display: inline-block;\n            font-family: 'Times New Roman', serif;\n            font-size: 1.1em;\n        }\n        \n        math[display=\"block\"] {\n            display: block;\n            text-align: center;\n            margin: 1em 0;\n        }\n        \n        .mathml-fallback {\n            background-color: rgba(255, 255, 0, 0.1);\n            padding: 2px;\n        }\n    "),
+      "\n        .math-display-block {\n            display: block;\n            text-align: center;\n            margin: 1em 0;\n            page-break-inside: avoid;\n        }\n        \n        .math-inline-block {\n            display: inline-block;\n            vertical-align: middle;\n        }\n        \n        .math-fallback {\n            font-family: 'Courier New', monospace;\n            background-color: rgba(255, 0, 0, 0.1);\n            padding: 2px 4px;\n            border-radius: 3px;\n        }\n        \n        .math-display-fallback {\n            display: block;\n            text-align: center;\n            margin: 1em 0;\n        }\n        \n        .math-inline-fallback {\n            display: inline-block;\n        }\n        \n        /* Asegurar que KaTeX se renderice correctamente en PDFs */\n        .katex {\n            font-size: 1.1em;\n            color: inherit;\n        }\n        \n        .katex-display {\n            margin: 0.5em 0;\n        }\n        \n        /* Estilos alternativos para MathML */\n        math {\n            display: inline-block;\n            font-family: 'Times New Roman', serif;\n            font-size: 1.1em;\n        }\n        \n        math[display=\"block\"] {\n            display: block;\n            text-align: center;\n            margin: 1em 0;\n        }\n        \n        .mathml-fallback {\n            background-color: rgba(255, 255, 0, 0.1);\n            padding: 2px;\n        }\n    "),
     document.head.appendChild(style));
 }
 ("undefined" != typeof window &&

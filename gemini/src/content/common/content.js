@@ -1,15 +1,15 @@
 // content.js
 
-// --- Globals ---
+// --- Variables Globales ---
 let sidebar;
 let promptCounter = 0;
 const PROMPT_SELECTOR = 'user-query-content .query-text';
 
 /**
- * Debounce function to limit the rate at which a function gets called.
- * @param {Function} func The function to debounce.
- * @param {number} delay The delay in milliseconds.
- * @returns {Function} The debounced function.
+ * Función debounce para limitar la frecuencia de llamada de una función.
+ * @param {Function} func La función a la que aplicar debounce.
+ * @param {number} delay El retraso en milisegundos.
+ * @returns {Function} La función con debounce aplicado.
  */
 function debounce(func, delay) {
     let timeoutId;
@@ -23,12 +23,12 @@ function debounce(func, delay) {
 
 
 /**
- * Creates and injects the main sidebar container into the page.
- * The sidebar is created only once.
+ * Crea e inyecta el contenedor principal de la barra lateral en la página.
+ * La barra lateral se crea solo una vez.
  */
 function createSidebar() {
     if (document.getElementById('gemini-chat-navigator-sidebar')) {
-        return; // Sidebar already exists
+        return; // La barra lateral ya existe
     }
 
     sidebar = document.createElement('div');
@@ -48,9 +48,9 @@ function createSidebar() {
 
     document.body.appendChild(sidebar);
 
-    // --- Event Listeners ---
+    // --- Event Listeners (Oyentes de Eventos) ---
 
-    // Add hover-to-peek functionality
+    // Agregar funcionalidad de hover para previsualizar
     sidebar.addEventListener('mouseenter', () => {
         if (sidebar.classList.contains('collapsed')) {
             sidebar.classList.add('peek');
@@ -72,14 +72,14 @@ function createSidebar() {
         const isCollapsed = sidebar.classList.contains('collapsed');
         toggleButton.textContent = isCollapsed ? '›' : '‹';
 
-        // Save the state to chrome.storage
+        // Guardar el estado en chrome.storage
         chrome.storage.local.set({ sidebarCollapsed: isCollapsed });
     });
 }
 
 /**
- * Finds all user prompts on the page, extracts text, and updates the navigation sidebar.
- * This function is designed to be idempotent and can be called multiple times.
+ * Encuentra todos los prompts del usuario en la página, extrae el texto y actualiza la barra lateral de navegación.
+ * Esta función está diseñada para ser idempotente y puede ser llamada múltiples veces.
  */
 function updateNavigation() {
     const navList = document.getElementById('gemini-nav-list');
@@ -90,33 +90,33 @@ function updateNavigation() {
 
     const prompts = document.querySelectorAll(PROMPT_SELECTOR);
 
-    // Clear existing links to rebuild them, ensuring order and no duplicates.
+    // Limpiar enlaces existentes para reconstruirlos, asegurando orden y sin duplicados.
     navList.innerHTML = '';
     promptCounter = 0;
 
     prompts.forEach(promptEl => {
-        promptCounter++; // Increment at the start for 1-based indexing
+        promptCounter++; // Incrementar al inicio para indexación basada en 1
 
-        // Find the closest parent that can serve as a reliable anchor
+        // Encontrar el padre más cercano que pueda servir como ancla confiable
         const anchorEl = promptEl.closest('user-query') || promptEl;
         if (!anchorEl.id) {
             anchorEl.id = `gemini-prompt-${promptCounter}`;
         }
 
-        // Extract the first line or first 50 characters as the title
+        // Extraer la primera línea o los primeros 50 caracteres como el título
         let linkText = promptEl.textContent.trim().split('\n')[0];
         if (linkText.length > 50) {
             linkText = linkText.substring(0, 50) + '...';
         }
 
-        if (!linkText) return; // Skip empty prompts
+        if (!linkText) return; // Omitir prompts vacíos
 
         const listItem = document.createElement('li');
         const link = document.createElement('a');
         link.href = `#${anchorEl.id}`;
-        link.title = promptEl.textContent.trim(); // Full prompt on hover
+        link.title = promptEl.textContent.trim(); // Prompt completo al pasar el cursor
 
-        // Create spans for number and text for better styling
+        // Crear spans para número y texto para mejor estilo
         const numberSpan = document.createElement('span');
         numberSpan.className = 'prompt-number';
         numberSpan.textContent = `${promptCounter}.`;
@@ -128,17 +128,17 @@ function updateNavigation() {
         link.appendChild(numberSpan);
         link.appendChild(textSpan);
 
-        // Add smooth scroll behavior
+        // Agregar comportamiento de desplazamiento suave
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetElement = document.getElementById(anchorEl.id);
             if (targetElement) {
                 targetElement.scrollIntoView({
                     behavior: 'smooth',
-                    // ** FIX ** Changed from 'center' to 'start' to align to the top
+                    // ** CORRECCIÓN ** Cambiado de 'center' a 'start' para alinear hacia arriba
                     block: 'start'
                 });
-                // Add a temporary highlight to the scrolled-to element
+                // Agregar un resaltado temporal al elemento al que se desplazó
                 const highlightTarget = targetElement.querySelector('.user-query-container') || targetElement;
                 highlightTarget.classList.add('highlight-prompt');
                 setTimeout(() => {
@@ -152,16 +152,16 @@ function updateNavigation() {
     });
 }
 
-// --- Main Execution ---
+// --- Ejecución Principal ---
 
-// Debounced version of our update function for performance
+// Versión con debounce de nuestra función de actualización para rendimiento
 const debouncedUpdate = debounce(updateNavigation, 500);
 
-// Function to initialize the extension
+// Función para inicializar la extensión
 function initialize() {
     createSidebar();
 
-    // Load the saved state from chrome.storage
+    // Cargar el estado guardado desde chrome.storage
     chrome.storage.local.get('sidebarCollapsed', (data) => {
         if (data.sidebarCollapsed) {
             sidebar.classList.add('collapsed');
@@ -169,10 +169,10 @@ function initialize() {
         }
     });
 
-    // Initial scan of the page
+    // Escaneo inicial de la página
     debouncedUpdate();
 
-    // Set up a MutationObserver to watch for changes in the chat log
+    // Configurar un MutationObserver para observar cambios en el registro de chat
     const observerTarget = document.body;
     if (!observerTarget) {
         console.error("Gemini Navigator: Could not find observer target.");
@@ -224,17 +224,17 @@ const CHAT_CLICKABLE_AREA_SELECTOR = ".conversation";
 const SIDE_NAV_SELECTOR = "mat-drawer";
 const SIDE_NAV_COLLAPSED_CLASS = "mat-drawer-closed";
 
-// --- ESTADO DA APLICAÇÃO ---
+// --- ESTADO DE LA APLICACIÓN ---
 let isSelectionModeActive = false;
 let bulkDeleteButton;
 
-// CHAMA A FUNÇÃO PARA INJETAR A FONTE DE ÍCONES
+// LLAMA A LA FUNCIÓN PARA INYECTAR LA FUENTE DE ÍCONOS
 injectFont();
 
-// --- LÓGICA PRINCIPAL ---
+// --- LÓGICA PRINCIPAL (en español) ---
 
 /**
- * Observa o DOM para injetar nossa UI quando o Gemini carregar.
+ * Observa el DOM para inyectar nuestra UI cuando Gemini cargue.
  */
 const observer = new MutationObserver((mutations, obs) => {
     const bottomControls = document.querySelector(BOTTOM_CONTROLS_SELECTOR);
@@ -266,11 +266,11 @@ function injectInitialUI(targetElement) {
     bulkDeleteButton.append(icon, text);
     bulkDeleteButton.onclick = toggleSelectionMode;
 
-    targetElement.before(bulkDeleteButton);
+targetElement.before(bulkDeleteButton);
 }
 
 /**
- * Ativa ou desativa o modo de seleção, mostrando/escondendo os checkboxes.
+ * Activa o desactiva el modo de selección, mostrando/ocultando los checkboxes.
  */
 function toggleSelectionMode() {
     isSelectionModeActive = !isSelectionModeActive;
@@ -313,8 +313,8 @@ function toggleSelectionMode() {
 }
 
 /**
- * Injeta a fonte de ícones do Google diretamente no <head> da página.
- * Isso é mais robusto contra políticas de segurança (CSP) do que o @import no CSS.
+ * Inyecta la fuente de iconos de Google directamente en el <head> de la página.
+ * Esto es más robusto contra políticas de seguridad (CSP) que el @import en CSS.
  */
 function injectFont() {
     if (document.getElementById("gemini-icon-font")) return;
@@ -324,7 +324,7 @@ function injectFont() {
     fontLink.href =
         "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200";
     document.head.appendChild(fontLink);
-    console.log("Fonte de Ícones Material Symbols injetada via JavaScript.");
+    console.log("Fuente de Iconos Material Symbols inyectada via JavaScript.");
 }
 
 /**
@@ -335,21 +335,21 @@ function injectInitialUI(targetElement) {
     bulkDeleteButton = document.createElement("button");
     bulkDeleteButton.id = "geminiBulkDeleteBtn";
 
-    // Cria o ícone
+    // Crea el ícono
     const icon = document.createElement("span");
     icon.className = "material-symbols-outlined";
     icon.textContent = "delete";
 
-    // Cria o texto
+    // Crea el texto
     const text = document.createElement("span");
     text.id = "bulkDeleteBtnText";
     text.textContent = "Select";
 
-    // NOVO: Cria o alvo de toque para o efeito de hover
+    // NUEVO: Crea el objetivo de toque para el efecto hover
     const touchTarget = document.createElement("span");
     touchTarget.className = "mat-mdc-button-touch-target";
 
-    // Adiciona todos os elementos ao botão na ordem correta
+    // Añade todos los elementos al botón en el orden correcto
     bulkDeleteButton.append(icon, text, touchTarget);
     bulkDeleteButton.onclick = toggleSelectionMode;
 
@@ -357,7 +357,7 @@ function injectInitialUI(targetElement) {
 }
 
 /**
- * Atualiza a aparência e função do botão principal com base nos checkboxes marcados.
+ * Actualiza la apariencia y función del botón principal basado en checkboxes marcados.
  */
 function updateDeleteButtonState() {
     const checkedCount = document.querySelectorAll(
@@ -379,7 +379,7 @@ function updateDeleteButtonState() {
 }
 
 /**
- * Executa a lógica de exclusão para os itens selecionados.
+ * Ejecuta la lógica de eliminación para los elementos seleccionados.
  */
 async function handleBulkDelete() {
     const checkedItems = document.querySelectorAll(
@@ -397,12 +397,12 @@ async function handleBulkDelete() {
     const buttonText = document.getElementById("bulkDeleteBtnText");
     const total = checkedItems.length;
 
-    // Usamos um loop 'for' tradicional com índice para podermos mostrar o progresso
+    // Usamos un loop 'for' tradicional con índice para poder mostrar el progreso
     for (let i = 0; i < total; i++) {
         const checkbox = checkedItems[i];
         const chatItem = checkbox.closest(CHAT_ITEM_SELECTOR);
 
-        // ATUALIZA O CONTADOR ANTES de tentar deletar
+        // ACTUALIZA EL CONTADOR ANTES de intentar eliminar
         buttonText.textContent = `Deleting ${i + 1} of ${total}...`;
 
         try {
@@ -415,18 +415,18 @@ async function handleBulkDelete() {
                 'button[data-test-id="delete-button"]'
             );
             if (deleteOption) deleteOption.click();
-            else throw new Error("Botão 'Delete' do menu não encontrado.");
+            else throw new Error("Botón 'Delete' del menú no encontrado.");
 
             const confirmButton = await waitForElement(
                 'button[data-test-id="confirm-button"]'
             );
             if (confirmButton) confirmButton.click();
-            else throw new Error("Botão de confirmação final não encontrado.");
+            else throw new Error("Botón de confirmación final no encontrado.");
 
-            await sleep(250); // Pausa para a UI respirar
+            await sleep(250); // Pausa para que la UI respire
         } catch (error) {
             console.error(
-                "Falha ao deletar chat:",
+                "Fallo al eliminar chat:",
                 chatItem.textContent.trim(),
                 error
             );
@@ -434,18 +434,18 @@ async function handleBulkDelete() {
         }
     }
 
-    // --- LIMPEZA FINAL ---
-    // Acontece uma única vez, APÓS o loop terminar completamente.
+    // --- LIMPIEZA FINAL ---
+    // Ocurre una única vez, DESPUÉS de que el loop termine completamente.
     bulkDeleteButton.disabled = false;
     toggleSelectionMode();
 }
 
 /**
- * Espera de forma inteligente por um elemento aparecer no DOM.
- * Em vez de um tempo fixo, ele verifica continuamente até encontrar o elemento ou um tempo limite ser atingido.
- * @param {string} selector - O seletor CSS do elemento a ser esperado.
- * @param {number} timeout - O tempo máximo de espera em milissegundos.
- * @returns {Promise<Element|null>} - O elemento encontrado ou null se o tempo esgotar.
+ * Espera de forma inteligente por un elemento para aparecer en el DOM.
+ * En lugar de un tiempo fijo, verifica continuamente hasta encontrar el elemento o se alcance el tiempo límite.
+ * @param {string} selector - El selector CSS del elemento a ser esperado.
+ * @param {number} timeout - El tiempo máximo de espera en milisegundos.
+ * @returns {Promise<Element|null>} - El elemento encontrado o null si el tiempo se agota.
  */
 function waitForElement(selector, timeout = 5000) {
     return new Promise((resolve) => {
@@ -458,11 +458,11 @@ function waitForElement(selector, timeout = 5000) {
             } else if (Date.now() - startTime > timeout) {
                 clearInterval(interval);
                 console.warn(
-                    `Timeout: Elemento "${selector}" não encontrado em ${timeout}ms.`
+                    `Timeout: Elemento "${selector}" no encontrado en ${timeout}ms.`
                 );
                 resolve(null);
             }
-        }, 100); // Verifica a cada 100ms
+        }, 100); // Verifica cada 100ms
     });
 }
 

@@ -2,12 +2,15 @@
 
 Una extensión de navegador para mejorar la experiencia de Google Gemini con funcionalidades de navegación avanzada, organización de conversaciones y herramientas adicionales.
 
+## demo
+
+![Demo](demo/demo.gif)
+
 ## 📁 Estructura del Proyecto
 
 ```
 /
 ├── README.md                          # Este archivo
-├── .gitignore                         # Archivos ignorados por Git
 ├── TODO/                              # Documentación y tareas
 │   └── TODO.md                        # Tareas pendientes
 └── gemini/                            # Directorio principal de la extensión
