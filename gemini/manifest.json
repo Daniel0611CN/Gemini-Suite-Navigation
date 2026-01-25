@@ -14,7 +14,7 @@
     "https://generativelanguage.googleapis.com/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background/background.js"
   },
   
   "content_scripts": [
@@ -25,29 +25,29 @@
         "https://aistudio.google.com/*"
       ],
       "js": [
-        "content.js",
-        "lib/katex.min.js",
-        "math_processor.js",
-        "lib/pdfmake.min.js",
-        "lib/vfs_fonts.js",
-        "lib/html-to-pdfmake.min.js",
-        "content_gemini.js"
+        "src/content/common/content.js",
+        "assets/lib/katex.min.js",
+        "src/content/common/math_processor.js",
+        "assets/lib/pdfmake.min.js",
+        "assets/lib/vfs_fonts.js",
+        "assets/lib/html-to-pdfmake.min.js",
+        "src/content/gemini/content_gemini.js"
       ],
       "css": [
-        "styles.css",
-        "lib/katex.min.css"
+        "src/ui/styles/main.css",
+        "assets/lib/katex.min.css"
       ],
       "run_at": "document_idle"
     }
   ],
   "web_accessible_resources": [
       {
-          "resources": ["lib/fonts/*"],
+          "resources": ["assets/lib/fonts/*"],
           "matches": ["https://gemini.google.com/*", "https://aistudio.google.com/*"]
       }
   ],
   "icons": {
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
   }
 }

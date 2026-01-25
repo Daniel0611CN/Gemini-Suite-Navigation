@@ -1,0 +1,154 @@
+/* Estilo do ícone dentro do nosso botão */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 20;
+  font-size: 18px;
+  position: relative;
+  left: -3px;
+}
+
+/* Botão principal, estilizado para parecer um botão nativo do Gemini */
+#geminiBulkDeleteBtn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 8px;
+  width: auto;
+  height: 40px;
+  padding: 0 16px;
+  margin: 0 12px 8px 12px;
+  background-color: transparent;
+  border: none;
+  border-radius: 20px;
+  color: #a2a9b0;
+  font-family: "Google Sans Flex", "Google Sans", sans-serif;
+  font-size: var(--gem-sys-typography-type-scale--body-m-font-size);
+  font-weight: var(--gem-sys-typography-type-scale--body-m-font-weight);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  order: -1;
+}
+
+/* Efeito de hover sutil, como no Gemini */
+#geminiBulkDeleteBtn:hover {
+  background-color: rgba(232, 234, 237, 0.08);
+}
+
+/* Estilo para quando o botão está no modo de "Cancelar" */
+#geminiBulkDeleteBtn.cancel-mode {
+  color: #8ab4f8;
+}
+
+/* Estilo para quando o botão está pronto para DELETAR (ativo) */
+#geminiBulkDeleteBtn.active-delete {
+  background-color: #f28b82;
+  color: #202124;
+  font-weight: bold;
+}
+
+#geminiBulkDeleteBtn.active-delete:hover {
+  background-color: #f6a7a1;
+}
+
+/* Botão desabilitado */
+#geminiBulkDeleteBtn:disabled {
+  background-color: #3c4043;
+  color: #5f6368;
+  cursor: not-allowed;
+}
+
+/* CORREÇÃO DO ALINHAMENTO DO CHECKBOX */
+.conversation-items-container.selection-active {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+}
+
+/* CHECKBOX REDONDO */
+.bulk-delete-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #bdc1c6;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: background-color 0.1s, border-color 0.1s;
+  flex-shrink: 0;
+}
+
+.bulk-delete-checkbox::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.1s;
+  box-shadow: inset 1em 1em #8ab4f8;
+}
+
+/* Quando o checkbox está marcado */
+.bulk-delete-checkbox:checked {
+  border-color: #8ab4f8;
+  background-color: #8ab4f81a;
+}
+
+.bulk-delete-checkbox:checked::before {
+  transform: scale(1);
+}
+
+.conversation-items-container.selection-active .conversation {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+#geminiBulkDeleteBtn .material-symbols-outlined {
+  font-family: "Material Symbols Outlined" !important;
+}
+
+/* ======================================================
+   Estilos para o Modo "Icon-Only" (Barra Encolhida)
+   ====================================================== */
+
+/* Quando nosso botão ganha a classe .icon-only */
+#geminiBulkDeleteBtn.icon-only {
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+
+/* Esconde o texto do botão quando em modo ícone */
+#geminiBulkDeleteBtn.icon-only #bulkDeleteBtnText {
+  display: none;
+}
+
+#geminiBulkDeleteBtn .mat-mdc-button-touch-target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.deletion-failed {
+  background-color: rgba(242, 139, 130, 0.15) !important;
+  border: 1px solid #f28b82;
+}
