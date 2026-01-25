@@ -1,10 +1,391 @@
 {
   "appName": {
-    "message": "SaveChat – for Gemini & AI Studio",
-    "description": "The name of the extension in Spanish."
+    "message": "SaveChat – para Gemini y AI Studio",
+    "description": "The name of the extension."
   },
   "appDesc": {
-    "message": "Exportar conversaciones de Gemini y AI Studio",
+    "message": "Exporta conversaciones de Gemini y AI Studio",
     "description": "The description of the application, displayed in the web store."
+  },
+  "extName": {
+    "message": "Carpetas de Chat para Gemini"
+  },
+  "extDescription": {
+    "message": "Añade paneles plegables y gestión de carpetas (incluyendo anidadas) para chats, con ordenación arrastrar y soltar."
+  },
+  "foldersTitle": {
+    "message": "Carpetas"
+  },
+  "newFolder": {
+    "message": "Nueva carpeta"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "confirm": {
+    "message": "Confirmar"
+  },
+  "close": {
+    "message": "Cerrar"
+  },
+  "untitledChat": {
+    "message": "Chat sin título"
+  },
+  "confirmAddChat": {
+    "message": "¿Quieres añadir \"$1\" a la carpeta \"$2\"?",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "chatAdded": {
+    "message": "\"$1\" añadido a \"$2\"",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "chatAlreadyExists": {
+    "message": "El chat ya está en \"$1\"",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "addModeNotification": {
+    "message": "Modo añadir: Haz clic en un chat para añadirlo a \"$1\"",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "promptNewName": {
+    "message": "Introduce el nuevo nombre para \"$1\":",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "confirmDeleteFolder": {
+    "message": "¿Estás seguro de que quieres eliminar la carpeta \"$1\" y todo su contenido?",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "confirmDeleteChatmark": {
+    "message": "¿Estás seguro de que quieres eliminar el marcador \"$1\"?",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "chatContainerNotFound": {
+    "message": "Contenedor de chat no encontrado."
+  },
+  "chatNotFoundTryAgain": {
+    "message": "Chat no encontrado, intentando cargar más... (Intento $1)",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "chatNotFound": {
+    "message": "Chat no encontrado, puede haber sido eliminado."
+  },
+  "folderMenu": {
+    "message": "Menú de carpeta"
+  },
+  "addChat": {
+    "message": "Añadir chat"
+  },
+  "addSubfolder": {
+    "message": "Añadir subcarpeta"
+  },
+  "rename": {
+    "message": "Renombrar"
+  },
+  "delete": {
+    "message": "Eliminar"
+  },
+  "chatmarkMenu": {
+    "message": "Menú de marcadores"
+  },
+  "remove": {
+    "message": "Quitar"
+  },
+  "promptNewFolder": {
+    "message": "Introduce el nombre de la nueva carpeta:"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar carpetas y chats..."
+  },
+  "search": {
+    "message": "Buscar"
+  },
+  "syncQuotaExceeded": {
+    "message": "Error de sincronización: Se ha excedido la cuota de almacenamiento. Es posible que los datos no se sincronicen entre dispositivos."
+  },
+  "importData": {
+    "message": "Importar datos"
+  },
+  "exportData": {
+    "message": "Exportar datos"
+  },
+  "confirmImport": {
+    "message": "¿Estás seguro de que quieres importar datos? Esto sobrescribirá tu estructura de carpetas actual. Esta acción no se puede deshacer."
+  },
+  "importSuccess": {
+    "message": "¡Datos importados con éxito!"
+  },
+  "importError": {
+    "message": "Error en la importación. El archivo seleccionado no es un archivo de copia de seguridad válido."
+  },
+  "exportSuccess": {
+    "message": "Los datos han sido exportados."
+  },
+  "exportError": {
+    "message": "Ocurrió un error al exportar los datos."
+  },
+  "moreActions": {
+    "message": "Más acciones"
+  },
+  "settings": {
+    "message": "Configuración"
+  },
+  "organizeWithAI": {
+    "message": "Organizar chats con IA"
+  },
+  "settingsTitle": {
+    "message": "Configuración y datos"
+  },
+  "apiKeyLabel": {
+    "message": "Clave API de Gemini"
+  },
+  "apiKeyPlaceholder": {
+    "message": "Introduce tu clave API aquí"
+  },
+  "apiKeyExplanation": {
+    "message": "Para usar la función de organización por IA, necesitas una clave API de Gemini. Esta es una función gratuita y opcional. Tu clave se almacena de forma segura en el almacenamiento de sincronización de tu navegador y nunca se comparte."
+  },
+  "apiKeyGuideLink": {
+    "message": "Obtén tu clave API aquí."
+  },
+  "saveAndVerifyKey": {
+    "message": "Guardar y verificar"
+  },
+  "keyVerifying": {
+    "message": "Verificando..."
+  },
+  "keyValid": {
+    "message": "¡La clave es válida y se ha guardado!"
+  },
+  "keyInvalid": {
+    "message": "La clave no es válida. Por favor, compruébala e inténtalo de nuevo."
+  },
+  "organizingChats": {
+    "message": "Pidiendo a la IA que organice tus chats..."
+  },
+  "organizeSuccess": {
+    "message": "¡Chats organizados con éxito!"
+  },
+  "organizeError": {
+    "message": "Ocurrió un error durante la organización por IA."
+  },
+  "noUncategorizedChats": {
+    "message": "No hay chats nuevos para organizar."
+  },
+  "loadingChats": {
+    "message": "Cargando todos los chats recientes..."
+  },
+  "loadingChatsComplete": {
+    "message": "Todos los chats han sido cargados. Analizando ahora..."
+  },
+  "importSuccessReload": {
+    "message": "¡Datos importados con éxito! La página se recargará ahora para aplicar los cambios."
+  },
+  "organizeParseError": {
+    "message": "Organización completada, pero no se pudieron entender algunas sugerencias de la IA."
+  },
+  "confirmOrganizeAI": {
+    "message": "Esto utilizará tu clave API de Gemini para analizar todos los chats sin categorizar. Esta acción consume recursos, puede tardar unos momentos y podría incurrir en costes dependiendo de tu plan de API. ¿Quieres continuar?"
+  },
+  "dangerZoneTitle": {
+    "message": "Zona de peligro"
+  },
+  "deleteAllDataButton": {
+    "message": "Eliminar todos los datos"
+  },
+  "deleteApiKeyCheckbox": {
+    "message": "Eliminar también la clave API guardada"
+  },
+  "confirmDeleteAllData": {
+    "message": "¿Estás seguro de que quieres eliminar todas tus carpetas y marcadores? Esta acción no se puede deshacer."
+  },
+  "confirmDeleteAllDataWithKey": {
+    "message": "¿Estás seguro de que quieres eliminar TODAS tus carpetas, marcadores Y tu clave API guardada? Esta acción no se puede deshacer."
+  },
+  "deleteAllDataSuccess": {
+    "message": "Todos los datos han sido eliminados. La página se recargará ahora."
+  },
+  "selectChatsTitle": {
+    "message": "Seleccionar chats para organizar"
+  },
+  "selectionModalInfo": {
+    "message": "Se encontraron los siguientes chats nuevos. Por favor, selecciona cuáles quieres enviar a la IA para su organización."
+  },
+  "selectAll": {
+    "message": "Seleccionar todos"
+  },
+  "selectNone": {
+    "message": "Deseleccionar todos"
+  },
+  "organizeXChats": {
+    "message": "Organizar $1 chats",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "confirmDuplicateChatmark": {
+    "message": "Ya existe un marcador para \"$1\" en la carpeta \"$3\". ¿Quieres crear un duplicado en \"$2\"?",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
+    }
+  },
+  "chatAlreadyInTargetFolder": {
+    "message": "Este chat ya está marcado en la carpeta de destino."
+  },
+  "confirmDeleteMissingChatmark": {
+    "message": "No se pudo encontrar el chat \"$1\". Puede haber sido eliminado. ¿Quieres eliminar este marcador?",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "syncButtonTitle": {
+    "message": "Los datos están desactualizados. Haz clic para actualizar."
+  },
+  "refreshingData": {
+    "message": "Actualizando datos..."
+  },
+  "dataStaleWarning": {
+    "message": "Los datos mostrados están desactualizados porque fueron modificados en otro dispositivo. Para evitar la pérdida de datos, las operaciones de modificación están temporalmente deshabilitadas. Haz clic en el botón para cargar la última versión."
+  },
+  "refreshButton": {
+    "message": "Actualizar ahora"
+  },
+  "dataStaleActionBlocked": {
+    "message": "Acción bloqueada. Por favor, actualiza los datos antes de continuar."
+  },
+  "manageBackupsButton": {
+    "message": "Gestionar copias de seguridad locales"
+  },
+  "restoreBackupTitle": {
+    "message": "Restaurar desde copia local"
+  },
+  "noBackupsFound": {
+    "message": "No se encontraron copias de seguridad locales."
+  },
+  "restoreBackupInfo": {
+    "message": "Selecciona una de las copias de seguridad guardadas automáticamente para restaurar la estructura de carpetas a esa fecha. Esta operación sobrescribirá la configuración actual."
+  },
+  "restoreButton": {
+    "message": "Restaurar"
+  },
+  "confirmRestore": {
+    "message": "¿Estás seguro de que quieres restaurar la copia de seguridad de $1? Tu estructura de carpetas actual será sobrescrita.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "restoreSuccess": {
+    "message": "Restauración completada con éxito. La página se recargará ahora."
+  },
+  "backupSlotTitle": {
+    "message": "Ranura $1:",
+    "placeholders": { "1": { "content": "$1" } }
+  },
+  "backupSlotDetails": {
+    "message": "($1 carpetas, $2 chats)",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "restoreButtonDisabledTitle": {
+    "message": "Esta es la versión actualmente en uso"
+  },
+  "genericError": {
+    "message": "Ocurrió un error inesperado."
+  },
+  "aiUseExistingFolders": {
+    "message": "Usar solo carpetas existentes"
+  },
+  "aiUseExistingFoldersInfo": {
+    "message": "Si se marca, la IA no creará nuevas carpetas, sino que solo intentará colocar los chats en las existentes."
+  },
+  "aiDefaultFolderName": {
+    "message": "Carpeta para chats sin clasificar"
+  },
+  "aiDefaultFolderNameInfo": {
+    "message": "Si la IA no encuentra una carpeta adecuada, los chats se colocarán aquí (se creará si no existe)."
+  },
+  "defaultFolderNameValue": {
+    "message": "Por organizar"
+  },
+  "cleanupOrphans": {
+    "message": "Limpiar marcadores huérfanos"
+  },
+  "cleanupOrphansTitle": {
+    "message": "Limpiar marcadores huérfanos"
+  },
+  "cleanupOrphansInfo": {
+    "message": "Se encontraron $1 marcadores que apuntan a chats inexistentes. Por favor, selecciona cuáles quieres eliminar.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "noOrphansFound": {
+    "message": "Escaneo completo. No se encontraron marcadores huérfanos."
+  },
+  "cleanupXOrphans": {
+    "message": "Eliminar $1 marcadores",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "cleanupSuccess": {
+    "message": "Se han eliminado $1 marcadores huérfanos.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "preferencesTitle": {
+    "message": "Preferencias"
+  },
+  "hideOrganizedLabel": {
+    "message": "Ocultar chats organizados de Recientes"
+  },
+  "hideOrganizedInfo": {
+    "message": "Oculta de la lista estándar de recientes los chats que ya están asignados a una carpeta."
+  },
+  "updatePageTitleLabel": {
+    "message": "Actualizar título de página con nombre del chat"
+  },
+  "updatePageTitleInfo": {
+    "message": "Reemplaza el título de la pestaña del navegador con el nombre del chat o marcador actual."
+  },
+  "pageTitlePrefixLabel": {
+    "message": "Prefijo del título de página"
+  },
+  "pageTitlePrefixPlaceholder": {
+    "message": "Ej. Google Gemini - "
+  },
+  "saveSettings": {
+    "message": "Guardar configuración"
+  },
+  "testApiKey": {
+    "message": "Verificar clave"
+  },
+  "settingsSaved": {
+    "message": "¡Configuración guardada con éxito!"
+  },
+  "previewTitle": {
+    "message": "Vista previa de la organización"
+  },
+  "previewInfo": {
+    "message": "Revisa la estructura de carpetas propuesta por la IA. Desmarca los elementos que no desees aplicar."
+  },
+  "applyChanges": {
+    "message": "Aplicar cambios"
+  },
+  "updateDetectedNotification": {
+    "message": "Gemini Chat Folders se ha actualizado, revisa la configuración para más detalles"
+  },
+  "viewChangesLink": {
+    "message": "Mira los últimos cambios aquí: "
   }
-} 
+}
