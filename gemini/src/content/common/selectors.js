@@ -21,11 +21,24 @@
       confirmButton: 'button[data-test-id="confirm-button"], button[aria-label*="Confirm"], button[aria-label*="Confirmar"]',
       sideNav: 'nav, [role="navigation"], body',
       settingsButton: 'button[aria-label*="Settings"], button[aria-label*="Configuración"]'
+    },
+    notebooklm: {
+      prompt: 'textarea, [contenteditable="true"][role="textbox"], [contenteditable="true"]',
+      input: 'textarea, [contenteditable="true"][role="textbox"], [contenteditable="true"]',
+      chatItem: '[data-notebook-id], a[href*="/notebook/"]',
+      chatClickable: '[data-notebook-id], a[href*="/notebook/"]',
+      actionsMenu: 'button[aria-label*="More"], button[aria-label*="Más"]',
+      deleteButton: '[role="menuitem"][aria-label*="Delete"], [role="menuitem"][aria-label*="Eliminar"]',
+      confirmButton: 'button[aria-label*="Confirm"], button[aria-label*="Confirmar"]',
+      sideNav: 'nav, [role="navigation"], body',
+      settingsButton: 'button[aria-label*="Settings"], button[aria-label*="Configuración"]'
     }
   };
 
   function getPlatform() {
-    return location.hostname === 'aistudio.google.com' ? 'aistudio' : 'gemini';
+    if (location.hostname === 'aistudio.google.com') return 'aistudio';
+    if (location.hostname === 'notebooklm.google.com') return 'notebooklm';
+    return 'gemini';
   }
 
   function getSelectors(platform = getPlatform()) {

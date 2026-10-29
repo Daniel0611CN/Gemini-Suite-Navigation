@@ -1,9 +1,7 @@
 {
-"update_url": "https://clients2.google.com/service/update2/crx",
-
-  "manifest_version": 3,
-  "name": "Gemini Suite Navigation",
-  "version": "1.1.0",
+"manifest_version": 3,
+"name": "Gemini Suite Navigation",
+"version": "1.2.0",
   "default_locale": "en",
   "description": "Local conversation navigation, organization, export, and backup tools for Gemini and AI Studio.",
   "permissions": [
@@ -11,7 +9,10 @@
     "activeTab"
   ],
   "host_permissions": [
-    "https://generativelanguage.googleapis.com/*"
+    "https://generativelanguage.googleapis.com/*",
+    "https://gemini.google.com/*",
+    "https://aistudio.google.com/*",
+    "https://notebooklm.google.com/*"
   ],
   "background": {
     "service_worker": "src/background/background.js"
@@ -42,18 +43,10 @@
         "https://gemini.google.com/*"
       ],
       "js": [
-        "assets/lib/pdfmake.min.js",
-        "assets/lib/vfs_fonts.js",
-        "assets/lib/html-to-pdfmake.min.js",
-        "assets/lib/html2canvas.min.js",
-        "assets/lib/jspdf.umd.min.js",
-        "assets/lib/html2pdf.bundle.min.js",
-        "assets/lib/katex.min.js",
         "src/content/common/selectors.js",
         "src/content/common/organization.js",
         "src/content/common/compatibility.js",
         "src/content/common/content.js",
-        "src/content/common/math_processor.js",
         "src/content/gemini/content_gemini.js"
       ],
       "css": [
@@ -61,8 +54,7 @@
         "src/ui/styles/sidebar.css",
         "src/ui/styles/buttons.css",
         "src/ui/styles/folder-enhancement.css",
-        "src/ui/styles/styles.css",
-        "assets/lib/katex.min.css"
+        "src/ui/styles/styles.css"
       ],
       "run_at": "document_idle"
     },
@@ -71,18 +63,10 @@
         "https://aistudio.google.com/*"
       ],
       "js": [
-        "assets/lib/pdfmake.min.js",
-        "assets/lib/vfs_fonts.js",
-        "assets/lib/html-to-pdfmake.min.js",
-        "assets/lib/html2canvas.min.js",
-        "assets/lib/jspdf.umd.min.js",
-        "assets/lib/html2pdf.bundle.min.js",
-        "assets/lib/katex.min.js",
         "src/content/common/selectors.js",
         "src/content/common/organization.js",
         "src/content/common/compatibility.js",
         "src/content/common/content.js",
-        "src/content/common/math_processor.js",
         "src/content/aistudio/content_aistudio.js"
       ],
       "css": [
@@ -90,8 +74,24 @@
         "src/ui/styles/sidebar.css",
         "src/ui/styles/buttons.css",
         "src/ui/styles/folder-enhancement.css",
-        "src/ui/styles/styles.css",
-        "assets/lib/katex.min.css"
+        "src/ui/styles/styles.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://notebooklm.google.com/*"
+      ],
+      "js": [
+        "src/content/common/selectors.js",
+        "src/content/common/organization.js",
+        "src/content/common/compatibility.js",
+        "src/content/notebooklm/content_notebooklm.js"
+      ],
+      "css": [
+        "src/ui/styles/themes.css",
+        "src/ui/styles/sidebar.css",
+        "src/ui/styles/styles.css"
       ],
       "run_at": "document_idle"
     }

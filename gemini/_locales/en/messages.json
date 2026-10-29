@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "SaveChat – for Gemini & AI Studio",
+    "message": "Gemini Suite Navigation",
     "description": "The name of the extension."
   },
   "appDesc": {
-    "message": "Export Gemini and AI Studio conversations",
+    "message": "Local navigation and productivity tools for Gemini, AI Studio, and NotebookLM",
     "description": "The description of the application, displayed in the web store."
   },
   "extName": {
