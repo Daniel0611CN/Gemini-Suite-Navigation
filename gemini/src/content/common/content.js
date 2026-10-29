@@ -431,6 +431,14 @@ function injectFont() {
  * @param {HTMLElement} targetElement - O elemento de 'Configurações' antes do qual vamos inserir nosso botão.
  */
 function injectInitialUI(targetElement) {
+    if (!targetElement?.before) {
+        targetElement = document.querySelector('nav, [role="navigation"], main, #app-root');
+    }
+    if (!targetElement?.before) {
+        console.error("Gemini Suite Navigation: bulk delete mount point not found.");
+        globalThis.GeminiSelectors?.showCompatibilityError("Bulk delete is unavailable because the conversation navigation could not be located.");
+        return;
+    }
     bulkDeleteButton = document.createElement("button");
     bulkDeleteButton.id = "geminiBulkDeleteBtn";
 
@@ -591,18 +599,19 @@ function initialize() {
     injectFont(); // Garante que a fonte dos ícones seja carregada
 
     const mainObserver = new MutationObserver((mutations, obs) => {
-        const bottomControls = document.querySelector(BOTTOM_CONTROLS_SELECTOR);
         const sideNav = document.querySelector(SIDE_NAV_SELECTOR);
+        const mount = document.querySelector(BOTTOM_CONTROLS_SELECTOR) ||
+            document.querySelector('nav, [role="navigation"], main, #app-root');
 
-        // Precisamos tanto do local do botão quanto da barra lateral para continuar
         if (
-            bottomControls &&
             sideNav &&
+            mount &&
             !document.getElementById("geminiBulkDeleteBtn")
         ) {
             console.log("Gemini UI detectada. Injetando UI e observadores.");
 
-            injectInitialUI(bottomControls);
+            injectInitialUI(mount);
+            if (!bulkDeleteButton) return;
             setupSidebarObserver(sideNav); // Inicia o nosso novo "espião"
 
             obs.disconnect(); // Para de observar a UI principal

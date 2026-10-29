@@ -1,6 +1,6 @@
 # Gemini Suite Navigation
 
-Una extensión Chromium local-first para mejorar la experiencia de Google Gemini y AI Studio con navegación, organización, exportación y copias de seguridad.
+Una extensión Chromium local-first para mejorar Google Gemini, Google AI Studio y NotebookLM con navegación, organización y herramientas de productividad.
 
 ## demo
 
@@ -71,11 +71,12 @@ Para actualizar la extensión después de modificar el código:
 - **Organización local** con carpetas compatibles, búsqueda, etiquetas, favoritos, recientes y ordenación
 - **Opciones y atajos configurables** para tema, barra lateral, confirmaciones, dominios compatibles y comandos
 - **Copias de seguridad JSON** de organización y ajustes con importación/exportación local
-- **Exportación a PDF** de conversaciones
-- **Soporte matemático** con KaTeX
+- **Herramientas específicas para AI Studio** con plantillas de prompts y copia rápida
+- **Herramientas para NotebookLM** para copiar el texto visible del cuaderno y acceder a ajustes
 - **Bulk delete protegido** con vista previa, conteos, confirmación y protección de favoritos
 - **Sidebar plegable** con modo peek
 - **Compatibilidad separada** para Gemini y AI Studio, con selectores centralizados y errores visibles cuando cambia la interfaz
+- **Sin exportador Save Chat ni motor KaTeX propio**: se evita duplicar funciones nativas de Gemini
 
 ## Privacidad y distribución
 

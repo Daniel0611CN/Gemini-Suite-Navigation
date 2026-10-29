@@ -206,6 +206,56 @@ body.gfe-add-mode-active nav a[href*="/app/"] {
   opacity: 1;
 }
 
+#gsn-gemini-tools,
+#gsn-aistudio-tools,
+#gsn-notebooklm-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--gfe-border-color);
+  border-radius: 12px;
+  background: var(--gfe-menu-bg);
+  color: var(--gfe-text-primary);
+  font: 13px 'Google Sans', sans-serif;
+}
+
+#gsn-gemini-tools button,
+#gsn-aistudio-tools button,
+#gsn-notebooklm-tools button {
+  border: 1px solid var(--gfe-border-color);
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+#gsn-gemini-tools button:hover,
+#gsn-aistudio-tools button:hover,
+#gsn-notebooklm-tools button:hover {
+  background: var(--gfe-background-hover-darker);
+}
+
+#gsn-platform-status {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2147483647;
+  display: none;
+  max-width: 360px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--gfe-menu-bg);
+  color: var(--gfe-text-primary);
+  box-shadow: var(--gfe-shadow-heavy);
+}
+
+#gsn-platform-status.gsn-visible { display: block; }
+#gsn-platform-status[data-kind="warning"] { border: 1px solid var(--gfe-stale-warning-border); }
+
 .gfe-confirm-overlay {
   position: fixed;
   top: 0;
