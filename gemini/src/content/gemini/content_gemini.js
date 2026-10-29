@@ -23,14 +23,9 @@
 
   function installTools() {
     if (document.getElementById('gsn-gemini-tools')) return;
-    const host = document.querySelector('main, #app-root');
-    if (!host) return;
-    const tools = document.createElement('div');
-    tools.id = 'gsn-gemini-tools';
-    tools.innerHTML = `
+    const tools = selectors.mountActionDock('gsn-gemini-tools', `
       <button type="button" data-action="copy-prompts">Copy prompts</button>
-      <button type="button" data-action="open-settings">Suite settings</button>`;
-    tools.addEventListener('click', async (event) => {
+      <button type="button" data-action="open-settings">Suite settings</button>`, async (event) => {
       const action = event.target.closest('button')?.dataset.action;
       if (action === 'copy-prompts') {
         const messages = getUserMessages();
@@ -38,9 +33,9 @@
         await navigator.clipboard.writeText(messages.join('\n\n'));
         showStatus(`${messages.length} prompts copied.`);
       }
-      if (action === 'open-settings') chrome.runtime.openOptionsPage();
+      if (action === 'open-settings') selectors.openSettings();
     });
-    host.appendChild(tools);
+    if (!tools) return;
   }
 
   const observer = new MutationObserver(installTools);
