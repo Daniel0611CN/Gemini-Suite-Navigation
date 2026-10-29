@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gemini Suite Navigation settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <h1>Gemini Suite Navigation</h1>
+    <p class="intro">All organization data stays in this browser. The extension does not use analytics or remote services.</p>
+    <form id="settings-form">
+      <label>Theme
+        <select id="theme"><option value="auto">Match site</option><option value="light">Light</option><option value="dark">Dark</option></select>
+      </label>
+      <label><input id="confirmBulkDelete" type="checkbox"> Confirm bulk deletion with a preview</label>
+      <label><input id="protectFavorites" type="checkbox"> Protect favorite chats from bulk deletion</label>
+      <label><input id="showRecent" type="checkbox"> Show recent items in organization tools</label>
+      <fieldset><legend>Custom shortcuts</legend>
+        <label>Toggle sidebar <input id="toggleSidebar" placeholder="Alt+Shift+G"></label>
+        <label>Focus search <input id="focusSearch" placeholder="Alt+Shift+F"></label>
+        <p class="hint">Use the same format as a browser shortcut, for example Alt+Shift+G. Chrome-managed commands can also be changed at chrome://extensions/shortcuts.</p>
+      </fieldset>
+      <fieldset><legend>Compatible domains</legend>
+        <label><input id="geminiDomain" type="checkbox"> Gemini</label>
+        <label><input id="aistudioDomain" type="checkbox"> AI Studio</label>
+      </fieldset>
+      <button type="submit">Save settings</button>
+      <span id="status" role="status"></span>
+    </form>
+    <section>
+      <h2>Local backup</h2>
+      <p>Backups include organization, favorites, tags, recent items, and settings. Conversation contents are never uploaded.</p>
+      <button id="export">Export JSON backup</button>
+      <label class="file-button">Import JSON backup <input id="import" type="file" accept="application/json"></label>
+      <p id="backup-status" role="status"></p>
+    </section>
+    <section>
+      <h2>Release and privacy</h2>
+      <p>Installable builds are distributed only as versioned ZIP files attached to GitHub Releases. See the repository README and permissions documentation for details.</p>
+    </section>
+  </main>
+  <script src="../../content/common/organization.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
