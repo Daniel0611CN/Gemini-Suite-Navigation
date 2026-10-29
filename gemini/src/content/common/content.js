@@ -3,7 +3,8 @@
 // --- Variables Globales ---
 let sidebar;
 let promptCounter = 0;
-const PROMPT_SELECTOR = 'user-query-content .query-text';
+const PROMPT_SELECTOR = globalThis.GeminiSelectors?.getPromptSelector() ||
+    'user-query-content .query-text, user-query-content .query-text-line, [data-message-author-role="user"], [data-testid="user-query"]';
 
 /**
  * Función debounce para limitar la frecuencia de llamada de una función.
@@ -343,6 +344,11 @@ const SIDE_NAV_COLLAPSED_CLASS = "mat-drawer-closed";
 let isSelectionModeActive = false;
 let bulkDeleteButton;
 
+function getChatClickableArea(item) {
+    if (item.matches?.(CHAT_CLICKABLE_AREA_SELECTOR)) return item;
+    return item.querySelector(CHAT_CLICKABLE_AREA_SELECTOR);
+}
+
 // LLAMA A LA FUNCIÓN PARA INYECTAR LA FUENTE DE ÍCONOS
 injectFont();
 
@@ -376,7 +382,7 @@ function toggleSelectionMode() {
         bulkDeleteButton.classList.remove("active-delete");
 
         chatItems.forEach((item) => {
-            const clickableArea = item.querySelector(CHAT_CLICKABLE_AREA_SELECTOR);
+            const clickableArea = getChatClickableArea(item);
             if (!clickableArea || item.querySelector(".bulk-delete-checkbox")) return;
 
             const checkbox = document.createElement("input");
@@ -524,13 +530,13 @@ async function handleBulkDelete() {
             if (moreOptionsBtn) moreOptionsBtn.click();
 
             const deleteOption = await waitForElement(
-                'button[data-test-id="delete-button"]'
+                GSN_SELECTORS.deleteButton || 'button[data-test-id="delete-button"]'
             );
             if (deleteOption) deleteOption.click();
             else throw new Error("Botón 'Delete' del menú no encontrado.");
 
             const confirmButton = await waitForElement(
-                'button[data-test-id="confirm-button"]'
+                CONFIRM_DELETE_BUTTON_SELECTOR
             );
             if (confirmButton) confirmButton.click();
             else throw new Error("Botón de confirmación final no encontrado.");
@@ -3426,7 +3432,8 @@ Now, provide the formatted text response. Your response MUST ONLY contain the st
 
         let sidebar;
         let promptCounter = 0;
-        const PROMPT_SELECTOR = 'user-query-content .query-text';
+        const PROMPT_SELECTOR = globalThis.GeminiSelectors?.getPromptSelector() ||
+            'user-query-content .query-text, user-query-content .query-text-line, [data-message-author-role="user"], [data-testid="user-query"]';
 
         function debounce(func, delay) {
             let timeoutId;

@@ -1023,7 +1023,9 @@ function extractSelectedElementsHTML() {
         answerHTML = "";
       const userCheckbox = userQuery?.querySelector(".gemini-export-checkbox");
       if (userCheckbox && userCheckbox.checked) {
-        const userTextElements = userQuery.querySelectorAll(".query-text-line");
+        const userTextElements = userQuery.querySelectorAll(
+          ".query-text-line, .query-text, [data-message-author-role='user'], [data-testid='user-query']",
+        );
         questionHTML =
           userTextElements && userTextElements.length > 0
             ? Array.from(userTextElements)
@@ -2611,7 +2613,9 @@ function extractConversationElements() {
         messageContent = container.querySelector("message-content");
       let questionHTML = "";
       const userTextElements =
-        userQueryContent?.querySelectorAll(".query-text-line");
+        userQueryContent?.querySelectorAll(
+          ".query-text-line, .query-text, [data-message-author-role='user'], [data-testid='user-query']",
+        );
       if (userTextElements && userTextElements.length > 0)
         questionHTML = Array.from(userTextElements)
           .map((el) => el.innerHTML.trim())

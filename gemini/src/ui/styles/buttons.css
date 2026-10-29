@@ -60,7 +60,10 @@
 }
 
 /* CORREÇÃO DO ALINHAMENTO DO CHECKBOX */
-.conversation-items-container.selection-active {
+.conversation-items-container.selection-active,
+[data-test-id="conversation"].selection-active,
+[data-testid="conversation"].selection-active,
+nav a.selection-active {
   display: flex !important;
   align-items: center;
   gap: 12px;
@@ -104,7 +107,10 @@
   transform: scale(1);
 }
 
-.conversation-items-container.selection-active .conversation {
+.conversation-items-container.selection-active .conversation,
+[data-test-id="conversation"].selection-active,
+[data-testid="conversation"].selection-active,
+nav a.selection-active {
   display: flex !important;
   align-items: center;
   gap: 12px;
