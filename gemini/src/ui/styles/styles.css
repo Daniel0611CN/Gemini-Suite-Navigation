@@ -178,7 +178,10 @@ body.gfe-add-mode-active .conversations-container {
   border-radius: 8px;
 }
 
-body.gfe-add-mode-active .conversation-items-container {
+body.gfe-add-mode-active .conversation-items-container,
+body.gfe-add-mode-active [data-test-id="conversation"],
+body.gfe-add-mode-active [data-testid="conversation"],
+body.gfe-add-mode-active nav a[href*="/app/"] {
   cursor: crosshair !important;
 }
 

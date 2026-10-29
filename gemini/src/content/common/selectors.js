@@ -1,24 +1,26 @@
 (function () {
   const selectors = {
     gemini: {
-      prompt: 'user-query-content .query-text',
-      chatItem: '.conversation-items-container',
-      chatClickable: '.conversation',
-      actionsMenu: 'button[data-test-id="actions-menu-button"]',
-      deleteButton: 'button[data-test-id="delete-button"]',
-      confirmButton: 'button[data-test-id="confirm-button"]',
-      sideNav: 'mat-drawer',
-      settingsButton: 'side-nav-action-button[data-test-id="settings-and-help-button"]'
+      prompt: 'user-query-content .query-text, user-query-content .query-text-line, [data-message-author-role="user"], [data-testid="user-query"]',
+      input: 'textarea, [contenteditable="true"][role="textbox"], [contenteditable="true"]',
+      chatItem: '.conversation-items-container, [data-test-id="conversation"], [data-testid="conversation"], nav a[href*="/app/"]',
+      chatClickable: '.conversation, [data-test-id="conversation"], [data-testid="conversation"], nav a[href*="/app/"]',
+      actionsMenu: 'button[data-test-id="actions-menu-button"], button[aria-label*="More"], button[aria-label*="Más"], [role="button"][aria-label*="More"], [role="button"][aria-label*="Más"]',
+      deleteButton: 'button[data-test-id="delete-button"], [role="menuitem"][aria-label*="Delete"], [role="menuitem"][aria-label*="Eliminar"]',
+      confirmButton: 'button[data-test-id="confirm-button"], button[aria-label*="Confirm"], button[aria-label*="Confirmar"]',
+      sideNav: 'mat-drawer, nav, [role="navigation"]',
+      settingsButton: 'side-nav-action-button[data-test-id="settings-and-help-button"], button[aria-label*="Settings"], button[aria-label*="Configuración"], [role="button"][aria-label*="Settings"], [role="button"][aria-label*="Configuración"]'
     },
     aistudio: {
-      prompt: 'textarea, [contenteditable="true"]',
-      chatItem: '[data-test-id="conversation"], .conversation',
+      prompt: '[data-message-author-role="user"], [data-testid="user-query"], .query-text, .query-text-line',
+      input: 'textarea, [contenteditable="true"][role="textbox"], [contenteditable="true"]',
+      chatItem: '[data-test-id="conversation"], [data-testid="conversation"], .conversation, nav a[href*="/prompt/"]',
       chatClickable: '[data-test-id="conversation"], .conversation',
-      actionsMenu: 'button[aria-label*="More"], button[data-test-id="actions-menu-button"]',
-      deleteButton: 'button[data-test-id="delete-button"]',
-      confirmButton: 'button[data-test-id="confirm-button"]',
-      sideNav: 'body',
-      settingsButton: 'button[aria-label*="Settings"]'
+      actionsMenu: 'button[aria-label*="More"], button[aria-label*="Más"], button[data-test-id="actions-menu-button"]',
+      deleteButton: 'button[data-test-id="delete-button"], [role="menuitem"][aria-label*="Delete"], [role="menuitem"][aria-label*="Eliminar"]',
+      confirmButton: 'button[data-test-id="confirm-button"], button[aria-label*="Confirm"], button[aria-label*="Confirmar"]',
+      sideNav: 'nav, [role="navigation"], body',
+      settingsButton: 'button[aria-label*="Settings"], button[aria-label*="Configuración"]'
     }
   };
 
@@ -28,6 +30,19 @@
 
   function getSelectors(platform = getPlatform()) {
     return selectors[platform] || selectors.gemini;
+  }
+
+  function getPromptSelector(platform = getPlatform()) {
+    return getSelectors(platform).prompt;
+  }
+
+  function getInputSelector(platform = getPlatform()) {
+    return getSelectors(platform).input;
+  }
+
+  function hasApplicationShell(platform = getPlatform()) {
+    const config = getSelectors(platform);
+    return Boolean(document.querySelector('#app-root, main, .initial-input-area, nav, ' + config.input));
   }
 
   function showCompatibilityError(message) {
@@ -54,5 +69,12 @@
     document.body?.appendChild(banner);
   }
 
-  globalThis.GeminiSelectors = Object.freeze({ getPlatform, getSelectors, showCompatibilityError });
+  globalThis.GeminiSelectors = Object.freeze({
+    getPlatform,
+    getSelectors,
+    getPromptSelector,
+    getInputSelector,
+    hasApplicationShell,
+    showCompatibilityError
+  });
 })();
