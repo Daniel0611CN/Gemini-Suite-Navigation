@@ -25,3 +25,15 @@ chrome.runtime.onInstalled.addListener((details) => {
         }
     }
 });
+
+chrome.commands.onCommand.addListener(async (command) => {
+    const tabs = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    const tab = tabs[0];
+    if (!tab?.id) return;
+    const action = command === 'toggle-sidebar' ? 'toggleSidebar' : 'focusSearch';
+    try {
+        await chrome.tabs.sendMessage(tab.id, { action });
+    } catch (error) {
+        console.error(`[Gemini Suite Navigation] Could not send ${action} command.`, error);
+    }
+});

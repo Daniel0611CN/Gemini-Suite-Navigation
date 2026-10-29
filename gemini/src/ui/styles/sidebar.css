@@ -153,6 +153,57 @@
     transition: background-color 0.2s ease, border-left 0.2s ease;
 }
 
+#gsn-organization-tools {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--sidebar-border);
+}
+
+#gsn-organization-tools input,
+#gsn-organization-tools select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 6px;
+    padding: 6px 8px;
+    color: var(--sidebar-header-text);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--sidebar-border);
+    border-radius: 6px;
+}
+
+.gsn-tool-row {
+    display: flex;
+    gap: 6px;
+}
+
+.gsn-tool-row input,
+.gsn-tool-row select {
+    flex: 1;
+}
+
+.gsn-tool-row button {
+    border: 1px solid var(--sidebar-border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--sidebar-header-text);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.gsn-tool-row button[aria-pressed="true"] {
+    background: var(--nav-link-hover-bg);
+}
+
+.gsn-favorite {
+    flex-shrink: 0;
+    margin-left: auto;
+    padding: 0 4px;
+    border: 0;
+    background: transparent;
+    color: var(--sidebar-toggle-btn);
+    cursor: pointer;
+}
+
 #gemini-nav-list li a:hover {
     background-color: var(--nav-link-hover-bg);
     color: var(--nav-link-hover-text);

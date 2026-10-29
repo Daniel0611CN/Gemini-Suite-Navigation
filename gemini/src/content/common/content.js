@@ -158,7 +158,7 @@ function updateNavigation() {
 const debouncedUpdate = debounce(updateNavigation, 500);
 
 // Función para inicializar la extensión
-function initialize() {
+function initializeNavigator() {
     createSidebar();
 
     // Cargar el estado guardado desde chrome.storage
@@ -203,9 +203,123 @@ function initialize() {
 const initInterval = setInterval(() => {
     if (document.querySelector(PROMPT_SELECTOR)) {
         clearInterval(initInterval);
-        initialize();
+        initializeNavigator();
     }
 }, 500);
+
+// Local organization controls are deliberately layered on top of the existing
+// folder UI so older folder data and platform-specific code remain compatible.
+(function initializeLocalOrganizationTools() {
+    const organization = globalThis.GeminiOrganization;
+    if (!organization) return;
+    let selectedKey = null;
+
+    function addToolbar() {
+        const currentSidebar = document.getElementById('gemini-chat-navigator-sidebar');
+        const navList = document.getElementById('gemini-nav-list');
+        if (!currentSidebar || !navList || document.getElementById('gsn-organization-tools')) return;
+        const tools = document.createElement('div');
+        tools.id = 'gsn-organization-tools';
+        tools.innerHTML = `
+            <input id="gsn-search" type="search" placeholder="Search conversations..." aria-label="Search conversations">
+            <div class="gsn-tool-row">
+              <select id="gsn-sort" aria-label="Sort conversations">
+                <option value="recent">Recent first</option>
+                <option value="title">Title</option>
+              </select>
+              <button id="gsn-filter-favorites" type="button" aria-pressed="false">★ Favorites</button>
+            </div>
+            <div class="gsn-tool-row">
+              <input id="gsn-tag" type="text" placeholder="Tag selected..." aria-label="Tag selected conversation">
+              <button id="gsn-add-tag" type="button">Tag</button>
+            </div>`;
+        currentSidebar.insertBefore(tools, navList);
+
+        const render = () => {
+            const query = document.getElementById('gsn-search').value.toLowerCase();
+            const favoriteOnly = document.getElementById('gsn-filter-favorites').getAttribute('aria-pressed') === 'true';
+            navList.querySelectorAll('li').forEach((item) => {
+                const text = item.textContent.toLowerCase();
+                const key = item.dataset.gsnKey;
+                item.hidden = Boolean(query && !text.includes(query)) ||
+                    (favoriteOnly && !item.dataset.gsnFavorite);
+                if (key) item.dataset.gsnFavorite = item.dataset.gsnFavorite || '';
+            });
+        };
+        document.getElementById('gsn-search').addEventListener('input', render);
+        document.getElementById('gsn-sort').addEventListener('change', () => {
+            const items = Array.from(navList.children);
+            items.sort((a, b) => document.getElementById('gsn-sort').value === 'title'
+                ? a.textContent.localeCompare(b.textContent)
+                : Number(b.dataset.gsnRecent || 0) - Number(a.dataset.gsnRecent || 0));
+            items.forEach((item) => navList.appendChild(item));
+        });
+        document.getElementById('gsn-filter-favorites').addEventListener('click', (event) => {
+            const enabled = event.currentTarget.getAttribute('aria-pressed') !== 'true';
+            event.currentTarget.setAttribute('aria-pressed', String(enabled));
+            render();
+        });
+        document.getElementById('gsn-add-tag').addEventListener('click', async () => {
+            const tag = document.getElementById('gsn-tag').value.trim();
+            if (!selectedKey || !tag) return;
+            await organization.toggleTag(selectedKey, tag, selectedKey.split('::').pop());
+            document.getElementById('gsn-tag').value = '';
+        });
+    }
+
+    async function decorateNavigation() {
+        const navList = document.getElementById('gemini-nav-list');
+        if (!navList) return;
+        const data = await organization.read();
+        navList.querySelectorAll('li').forEach((item) => {
+            const link = item.querySelector('a');
+            if (!link || item.dataset.gsnDecorated) return;
+            const title = link.title || link.textContent.replace(/^\d+\.\s*/, '');
+            const key = organization.keyFor(title);
+            const stored = data.items[key] || {};
+            item.dataset.gsnKey = key;
+            item.dataset.gsnRecent = String(stored.lastOpened || 0);
+            item.dataset.gsnFavorite = stored.favorite ? 'true' : '';
+            const favorite = document.createElement('button');
+            favorite.type = 'button';
+            favorite.className = 'gsn-favorite';
+            favorite.title = 'Toggle favorite';
+            favorite.textContent = stored.favorite ? '★' : '☆';
+            favorite.addEventListener('click', async (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const updated = await organization.toggleFavorite(key, title);
+                item.dataset.gsnFavorite = updated.favorite ? 'true' : '';
+                favorite.textContent = updated.favorite ? '★' : '☆';
+            });
+            link.appendChild(favorite);
+            link.addEventListener('click', () => {
+                selectedKey = key;
+                organization.touch(key, title).catch((error) => console.error('[Gemini Suite Navigation] Could not save recent item.', error));
+            });
+            item.dataset.gsnDecorated = 'true';
+        });
+        document.getElementById('gsn-search')?.dispatchEvent(new Event('input'));
+    }
+
+    function applySettings(settings) {
+        document.body.classList.toggle('gsn-light-theme', settings.theme === 'light');
+        document.body.classList.toggle('gsn-dark-theme', settings.theme === 'dark');
+    }
+
+    chrome.runtime.onMessage.addListener((request) => {
+        if (request.action === 'toggleSidebar') document.getElementById('toggle-sidebar-btn')?.click();
+        if (request.action === 'focusSearch') document.getElementById('gsn-search')?.focus();
+    });
+
+    const observer = new MutationObserver(() => {
+        addToolbar();
+        decorateNavigation().catch((error) => console.error('[Gemini Suite Navigation] Organization UI failed.', error));
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    organization.read().then((data) => applySettings(data.settings)).catch((error) => console.error('[Gemini Suite Navigation] Settings failed to load.', error));
+    addToolbar();
+})();
 
 
 // ============================================================================
@@ -213,15 +327,16 @@ const initInterval = setInterval(() => {
 // ============================================================================
 
 // --- SELETORES ---
-const CHAT_ITEM_SELECTOR = ".conversation-items-container";
+const GSN_SELECTORS = globalThis.GeminiSelectors?.getSelectors() || {};
+const CHAT_ITEM_SELECTOR = GSN_SELECTORS.chatItem || ".conversation-items-container";
 const BOTTOM_CONTROLS_SELECTOR =
-    'side-nav-action-button[data-test-id="settings-and-help-button"]';
+    GSN_SELECTORS.settingsButton || 'side-nav-action-button[data-test-id="settings-and-help-button"]';
 const MORE_OPTIONS_BUTTON_SELECTOR =
-    'button[data-test-id="actions-menu-button"]';
+    GSN_SELECTORS.actionsMenu || 'button[data-test-id="actions-menu-button"]';
 const MENU_DELETE_BUTTON_SELECTOR = ".mat-mdc-menu-item";
-const CONFIRM_DELETE_BUTTON_SELECTOR = 'button[data-test-id="confirm-button"]';
-const CHAT_CLICKABLE_AREA_SELECTOR = ".conversation";
-const SIDE_NAV_SELECTOR = "mat-drawer";
+const CONFIRM_DELETE_BUTTON_SELECTOR = GSN_SELECTORS.confirmButton || 'button[data-test-id="confirm-button"]';
+const CHAT_CLICKABLE_AREA_SELECTOR = GSN_SELECTORS.chatClickable || ".conversation";
+const SIDE_NAV_SELECTOR = GSN_SELECTORS.sideNav || "mat-drawer";
 const SIDE_NAV_COLLAPSED_CLASS = "mat-drawer-closed";
 
 // --- ESTADO DE LA APLICACIÓN ---
@@ -246,28 +361,6 @@ const observer = new MutationObserver((mutations, obs) => {
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
-
-/**
- * Injeta o botão inicial "Select" na UI.
- * @param {HTMLElement} targetElement - O elemento de 'Configurações' antes do qual vamos inserir nosso botão.
- */
-function injectInitialUI(targetElement) {
-    bulkDeleteButton = document.createElement("button");
-    bulkDeleteButton.id = "geminiBulkDeleteBtn";
-
-    const icon = document.createElement("span");
-    icon.className = "material-symbols-outlined";
-    icon.textContent = "delete";
-
-    const text = document.createElement("span");
-    text.id = "bulkDeleteBtnText";
-    text.textContent = "Select";
-
-    bulkDeleteButton.append(icon, text);
-    bulkDeleteButton.onclick = toggleSelectionMode;
-
-targetElement.before(bulkDeleteButton);
-}
 
 /**
  * Activa o desactiva el modo de selección, mostrando/ocultando los checkboxes.
@@ -387,19 +480,38 @@ async function handleBulkDelete() {
     );
     if (checkedItems.length === 0) return;
 
-    if (
-        !confirm(`Are you sure you want to delete ${checkedItems.length} chat(s)?`)
-    ) {
+    const organization = globalThis.GeminiOrganization;
+    const data = organization ? await organization.read() : { settings: {} };
+    const protectedItems = organization && data.settings.protectFavorites
+        ? Array.from(checkedItems).filter((checkbox) => {
+            const item = checkbox.closest(CHAT_ITEM_SELECTOR);
+            const title = item?.textContent?.trim() || '';
+            const key = organization.keyFor(title);
+            return Boolean(data.items[key]?.favorite);
+        })
+        : [];
+    const deletableItems = Array.from(checkedItems).filter((checkbox) => !protectedItems.includes(checkbox));
+    const preview = [
+        `Selected: ${checkedItems.length}`,
+        `Will delete: ${deletableItems.length}`,
+        `Protected favorites: ${protectedItems.length}`
+    ].join('\n');
+    const shouldConfirm = data.settings.confirmBulkDelete !== false;
+    if (shouldConfirm && !confirm(`${preview}\n\nContinue?`)) {
+        return;
+    }
+    if (deletableItems.length === 0) {
+        alert('All selected chats are protected favorites. No chats were deleted.');
         return;
     }
 
     bulkDeleteButton.disabled = true;
     const buttonText = document.getElementById("bulkDeleteBtnText");
-    const total = checkedItems.length;
+    const total = deletableItems.length;
 
     // Usamos un loop 'for' tradicional con índice para poder mostrar el progreso
     for (let i = 0; i < total; i++) {
-        const checkbox = checkedItems[i];
+        const checkbox = deletableItems[i];
         const chatItem = checkbox.closest(CHAT_ITEM_SELECTOR);
 
         // ACTUALIZA EL CONTADOR ANTES de intentar eliminar
@@ -1379,9 +1491,9 @@ if (typeof window.geminiFolderExtensionLoaded === 'undefined') {
             <!-- NUOVA SOTTO-OPZIONE: Prefisso titolo pagina -->
             <div class="gfe-setting-sub-option">
                 <label for="${GFE_PREFIX}title-prefix-input">${getMessage("pageTitlePrefixLabel")}</label>
-                <input type="text" id="${GFE_PREFIX}title-prefix-input" 
-                       placeholder="${getMessage("pageTitlePrefixPlaceholder")}" 
-                       value="${pageTitlePrefix}" 
+                <input type="text" id="${GFE_PREFIX}title-prefix-input"
+                       placeholder="${getMessage("pageTitlePrefixPlaceholder")}"
+                       value="${pageTitlePrefix}"
                        ${!updatePageTitle || isDataStale ? 'disabled' : ''}>
             </div>
             <!-- NUOVA OPZIONE: Reset Conferme -->
@@ -1410,7 +1522,7 @@ if (typeof window.geminiFolderExtensionLoaded === 'undefined') {
             <button id="${GFE_PREFIX}delete-all-data-btn" class="gfe-delete-btn" ${isDataStale ? 'disabled' : ''}>${getMessage("deleteAllDataButton")}</button>
         </div>
 
-        <div class="gfe-settings-section">            
+        <div class="gfe-settings-section">
             <!-- MODIFICA v4.9.1: Link al Changelog -->
             <div class="gfe-option-item" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--gfe-border-color);">
                 <p class="gfe-option-info">${getMessage("viewChangesLink")} <a href="https://sites.google.com/view/gemini-chat-folders-change-log" target="_blank" style="color: var(--gfe-button-primary-bg); font-weight: 500;">Changelog</a></p>
@@ -3092,7 +3204,7 @@ Now, provide the formatted text response. Your response MUST ONLY contain the st
             return;
         }
 
-        // 2. Check if we can find ANY chat items. 
+        // 2. Check if we can find ANY chat items.
         // Note: This relies on the assumption that a user usually has at least one recent chat.
         // If the list is truly empty, this might be a false positive, but it's safe to warn.
         // To reduce false positives on fresh accounts, we might check if there are OTHER elements looking like list items but not matching our selector.
@@ -3102,7 +3214,7 @@ Now, provide the formatted text response. Your response MUST ONLY contain the st
         if (chatContainer.children.length > 0) {
             const foundChats = chatContainer.querySelectorAll('a[data-test-id="conversation"]');
             if (foundChats.length === 0) {
-                // Double check: maybe they are still divs? 
+                // Double check: maybe they are still divs?
                 // If they are divs, Google reverted or changed something else.
                 // In any case, our MAIN selector failed.
                 console.warn('GFE Compatibility Check Failed: No chat items found with selector a[data-test-id="conversation"], but container is not empty.');

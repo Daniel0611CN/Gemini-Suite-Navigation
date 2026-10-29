@@ -1,6 +1,6 @@
 # Gemini Suite Navigation
 
-Una extensión de navegador para mejorar la experiencia de Google Gemini con funcionalidades de navegación avanzada, organización de conversaciones y herramientas adicionales.
+Una extensión Chromium local-first para mejorar la experiencia de Google Gemini y AI Studio con navegación, organización, exportación y copias de seguridad.
 
 ## demo
 
@@ -65,15 +65,23 @@ Para actualizar la extensión después de modificar el código:
 - Haz clic en 🔄 "Recargar" junto a "Gemini Suite Navigation"
 - Recarga la pestaña de Gemini
 
-##  Funcionalidades Principales
+## Funcionalidades principales
 
 - **Navegación avanzada** entre conversaciones
-- **Organización de chats** con sistema de carpetas
+- **Organización local** con carpetas compatibles, búsqueda, etiquetas, favoritos, recientes y ordenación
+- **Opciones y atajos configurables** para tema, barra lateral, confirmaciones, dominios compatibles y comandos
+- **Copias de seguridad JSON** de organización y ajustes con importación/exportación local
 - **Exportación a PDF** de conversaciones
 - **Soporte matemático** con KaTeX
-- **Bulk delete** para eliminación masiva de conversaciones
+- **Bulk delete protegido** con vista previa, conteos, confirmación y protección de favoritos
 - **Sidebar plegable** con modo peek
-- **Tema claro/oscuro** automático
+- **Compatibilidad separada** para Gemini y AI Studio, con selectores centralizados y errores visibles cuando cambia la interfaz
+
+## Privacidad y distribución
+
+Los datos de organización, ajustes y copias de seguridad permanecen en el almacenamiento local del navegador. No se añade analítica ni un servicio remoto. La distribución oficial se realiza únicamente mediante ZIP versionados adjuntos a [GitHub Releases](RELEASE.md); no se publica en Chrome Web Store ni en otra tienda.
+
+Consulta [PRIVACY.md](PRIVACY.md) para permisos, [CONTRIBUTING.md](CONTRIBUTING.md) para desarrollo y [ROADMAP.md](ROADMAP.md) para próximos pasos.
 
 ##  Notas para Desarrolladores
 

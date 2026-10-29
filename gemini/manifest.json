@@ -3,9 +3,9 @@
 
   "manifest_version": 3,
   "name": "Gemini Suite Navigation",
-  "version": "1.0",
+  "version": "1.1.0",
   "default_locale": "en",
-  "description": "",
+  "description": "Local conversation navigation, organization, export, and backup tools for Gemini and AI Studio.",
   "permissions": [
     "storage",
     "activeTab"
@@ -16,7 +16,25 @@
   "background": {
     "service_worker": "src/background/background.js"
   },
-  
+  "options_ui": {
+    "page": "src/ui/pages/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "toggle-sidebar": {
+      "suggested_key": {
+        "default": "Alt+Shift+G"
+      },
+      "description": "Toggle the Gemini Suite Navigation sidebar"
+    },
+    "focus-search": {
+      "suggested_key": {
+        "default": "Alt+Shift+F"
+      },
+      "description": "Focus Gemini Suite Navigation search"
+    }
+  },
+
   "content_scripts": [
     {
       "matches": [
@@ -31,6 +49,9 @@
         "assets/lib/jspdf.umd.min.js",
         "assets/lib/html2pdf.bundle.min.js",
         "assets/lib/katex.min.js",
+        "src/content/common/selectors.js",
+        "src/content/common/organization.js",
+        "src/content/common/compatibility.js",
         "src/content/common/content.js",
         "src/content/common/math_processor.js",
         "src/content/gemini/content_gemini.js"
@@ -57,6 +78,9 @@
         "assets/lib/jspdf.umd.min.js",
         "assets/lib/html2pdf.bundle.min.js",
         "assets/lib/katex.min.js",
+        "src/content/common/selectors.js",
+        "src/content/common/organization.js",
+        "src/content/common/compatibility.js",
         "src/content/common/content.js",
         "src/content/common/math_processor.js",
         "src/content/aistudio/content_aistudio.js"
