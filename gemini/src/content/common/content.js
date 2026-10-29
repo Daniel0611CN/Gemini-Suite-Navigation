@@ -460,7 +460,9 @@ function injectInitialUI(targetElement) {
     bulkDeleteButton.append(icon, text, touchTarget);
     bulkDeleteButton.onclick = toggleSelectionMode;
 
-    targetElement.before(bulkDeleteButton);
+    const dock = globalThis.GeminiSelectors?.getActionDock();
+    if (dock) dock.appendChild(bulkDeleteButton);
+    else targetElement.before(bulkDeleteButton);
 }
 
 /**
@@ -3215,7 +3217,6 @@ Now, provide the formatted text response. Your response MUST ONLY contain the st
         if (!chatContainer) {
             // When there are no conversations (fresh account) the sidebar may be absent.
             // This is not a blocking incompatibility — log an informational message and continue.
-            console.info('No blocking modal: Gemini chat sidebar/history empty or missing (normal)');
             return;
         }
 

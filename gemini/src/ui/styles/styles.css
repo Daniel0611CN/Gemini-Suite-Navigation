@@ -206,25 +206,35 @@ body.gfe-add-mode-active nav a[href*="/app/"] {
   opacity: 1;
 }
 
-#gsn-gemini-tools,
-#gsn-aistudio-tools,
-#gsn-notebooklm-tools {
+#gsn-action-dock {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 2147483640;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-  margin: 12px;
+  justify-content: center;
+  max-width: min(94vw, 780px);
   padding: 10px 12px;
   border: 1px solid var(--gfe-border-color);
   border-radius: 12px;
   background: var(--gfe-menu-bg);
   color: var(--gfe-text-primary);
   font: 13px 'Google Sans', sans-serif;
+  box-shadow: var(--gfe-shadow-heavy);
+  backdrop-filter: blur(12px);
 }
 
-#gsn-gemini-tools button,
-#gsn-aistudio-tools button,
-#gsn-notebooklm-tools button {
+#gsn-gemini-tools,
+#gsn-aistudio-tools,
+#gsn-notebooklm-tools {
+  display: contents;
+}
+
+#gsn-action-dock button {
   border: 1px solid var(--gfe-border-color);
   border-radius: 8px;
   padding: 7px 10px;
@@ -233,9 +243,7 @@ body.gfe-add-mode-active nav a[href*="/app/"] {
   cursor: pointer;
 }
 
-#gsn-gemini-tools button:hover,
-#gsn-aistudio-tools button:hover,
-#gsn-notebooklm-tools button:hover {
+#gsn-action-dock button:hover {
   background: var(--gfe-background-hover-darker);
 }
 

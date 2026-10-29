@@ -1,4 +1,22 @@
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => (console.log("Mensaje recibido en background:", request), !0)), chrome.runtime.onInstalled.addListener(function (details) { console.log("Extensión instalada/actualizada:", details.reason); const settingsKey = "ai-pdf-settings"; if ("install" === details.reason) { console.log("Extensión PDF Gemini/AI Studio Instalada."); const initialSettings = { fileName: "ai-conversation", theme: "light", orientation: "portrait", compression: !0 }; chrome.storage.local.set({ [settingsKey]: initialSettings }, () => { chrome.runtime.lastError ? console.error("Error al guardar configuración inicial:", chrome.runtime.lastError) : console.log("Configuración PDF predeterminada guardada en almacenamiento local.") }) } else "update" === details.reason && (console.log("Extensión PDF Gemini/AI Studio Actualizada."), chrome.storage.local.get("ai-pdf-settings", result => { if (!result["ai-pdf-settings"]) { console.log("Clave de configuración no encontrada al actualizar, inicializando valores predeterminados."); const initialSettings = {}; chrome.storage.local.set({ [settingsKey]: initialSettings }) } })) });
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'openOptionsPage') {
+        chrome.runtime.openOptionsPage(() => {
+            const error = chrome.runtime.lastError;
+            if (error) {
+                console.error('[Gemini Suite Navigation] Could not open options page.', error);
+                sendResponse({ ok: false, error: error.message });
+                return;
+            }
+            sendResponse({ ok: true });
+        });
+        return true;
+    }
+    return false;
+});
+
+chrome.runtime.onInstalled.addListener((details) => {
+    console.log(`[Gemini Suite Navigation] Extension ${details.reason}.`);
+});
 
 chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason === "update") {

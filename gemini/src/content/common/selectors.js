@@ -58,6 +58,40 @@
     return Boolean(document.querySelector('#app-root, main, .initial-input-area, nav, ' + config.input));
   }
 
+  function openSettings() {
+    chrome.runtime.sendMessage({ action: 'openOptionsPage' }, (response) => {
+      const error = chrome.runtime.lastError;
+      if (error || !response?.ok) {
+        console.error('[Gemini Suite Navigation] Could not open settings.', error || response?.error);
+      }
+    });
+  }
+
+  function getActionDock() {
+    let dock = document.getElementById('gsn-action-dock');
+    if (!dock) {
+      dock = document.createElement('div');
+      dock.id = 'gsn-action-dock';
+      dock.setAttribute('role', 'toolbar');
+      dock.setAttribute('aria-label', 'Gemini Suite Navigation tools');
+      document.body?.appendChild(dock);
+    }
+    return dock;
+  }
+
+  function mountActionDock(id, content, onClick) {
+    const dock = getActionDock();
+    let tool = document.getElementById(id);
+    if (!tool) {
+      tool = document.createElement('div');
+      tool.id = id;
+      tool.innerHTML = content;
+      dock.appendChild(tool);
+      if (onClick) tool.addEventListener('click', onClick);
+    }
+    return tool;
+  }
+
   function showCompatibilityError(message) {
     console.error(`[Gemini Suite Navigation] ${message}`);
     if (document.getElementById('gsn-compatibility-error')) return;
@@ -88,6 +122,9 @@
     getPromptSelector,
     getInputSelector,
     hasApplicationShell,
+    openSettings,
+    getActionDock,
+    mountActionDock,
     showCompatibilityError
   });
 })();
